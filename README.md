@@ -6,7 +6,7 @@ Right now in Catalan, I will be gradually translating them to English.
 
 ## Books
 
-
+- [Modern Operating Systems - Andrew Tanenbaum](https://github.com/canales2002/learning-notes/blob/main/books/modern-operating-systems.md)
 
 ## Talks
 
