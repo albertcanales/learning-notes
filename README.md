@@ -6,14 +6,14 @@ Right now in Catalan, I will be gradually translating them to English.
 
 ## Books
 
-- [Modern Operating Systems - Andrew Tanenbaum](https://github.com/canales2002/learning-notes/blob/main/books/modern-operating-systems.md)
+- [Modern Operating Systems - Andrew Tanenbaum](https://github.com/albertcanales/learning-notes/blob/main/books/modern-operating-systems.md)
 
 ## Talks
 
-- [Practical Guide to Hacking RFID/NFC - Slawomir Jasek](https://github.com/canales2002/learning-notes/blob/main/talks/practical-guide-rfid-nfc.md)
-- [The Tragedy of Systemd - Benno Rice](https://github.com/canales2002/learning-notes/blob/main/talks/tragedy-of-systemd.md)
+- [Practical Guide to Hacking RFID/NFC - Slawomir Jasek](https://github.com/albertcanales/learning-notes/blob/main/talks/practical-guide-rfid-nfc.md)
+- [The Tragedy of Systemd - Benno Rice](https://github.com/albertcanales/learning-notes/blob/main/talks/tragedy-of-systemd.md)
 
 ## Courses
 
-- [Django Crash Course - Academind](https://github.com/canales2002/learning-notes/blob/main/courses/django-crash-course.md)
-- [Linux Systemd - TutoriaLinux](https://github.com/canales2002/learning-notes/blob/main/courses/linux-systemd.md)
+- [Django Crash Course - Academind](https://github.com/albertcanales/learning-notes/blob/main/courses/django-crash-course.md)
+- [Linux Systemd - TutoriaLinux](https://github.com/albertcanales/learning-notes/blob/main/courses/linux-systemd.md)
