@@ -2,7 +2,7 @@
 
 My notes on some interesting books, talks and courses.
 
-Right now in Catalan, I will be gradually translating them to English.
+Some of them are right now in Catalan, I will be gradually translating them to English.
 
 ## Books
 
@@ -18,3 +18,4 @@ Right now in Catalan, I will be gradually translating them to English.
 - [Django Crash Course - Academind](https://github.com/albertcanales/learning-notes/blob/main/courses/django-crash-course.md)
 - [Linux Systemd - TutoriaLinux](https://github.com/albertcanales/learning-notes/blob/main/courses/linux-systemd.md)
 - [How to HomeLab - Learn Linux TV](https://github.com/albertcanales/learning-notes/blob/main/courses/how-to-homelab.md)
+- [Ansible 101 - Jeff Geerling](https://github.com/albertcanales/learning-notes/blob/main/courses/ansible-101.md)
