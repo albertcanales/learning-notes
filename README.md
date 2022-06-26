@@ -17,3 +17,4 @@ Right now in Catalan, I will be gradually translating them to English.
 
 - [Django Crash Course - Academind](https://github.com/albertcanales/learning-notes/blob/main/courses/django-crash-course.md)
 - [Linux Systemd - TutoriaLinux](https://github.com/albertcanales/learning-notes/blob/main/courses/linux-systemd.md)
+- [How to HomeLab - Learn Linux TV](https://github.com/albertcanales/learning-notes/blob/main/courses/how-to-homelab.md)
