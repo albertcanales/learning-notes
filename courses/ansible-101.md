@@ -60,6 +60,7 @@ With Vagrant one can start multiple VMs in a single Vagrant file. Also available
 
 ### Multi-host inventory
 
+There are two sintaxes that can be used, INI and YAML. In INI:
 - Comments with #
 - Groups in brackets (for example `[db]`)
 
@@ -107,4 +108,64 @@ Ansible documentation in the [website](docs.ansible,com) or terminal using `ansi
 
 A single host can be targeted (or ignore) with `--limit` argument followed by a regexp. Not necessary until debugging with quite advanced stuff.
 
+
+## Introduction to Playbooks
+
+> As the livestreams don't perfectly match with the chapters on the books, the beggining of this episode continues with ad-hoc commands, that would fit better on the last episode.
+
+### Multi-host ad-hoc orchestration
+
+To let an ad-hoc command run in the background, there are two interesting arguments:
+- `-B <seconds>`: Lets the command run for `<seconds>` seconds. If not finished after those, the job is killed.
+- `-P <seconds>`: It will poll every `<seconds>` seconds to see if the job is finished. If 0, then no polling is done.
+
+On `-P`, ansible returns a *job_id*, that can be used to check the status of that job with the `async_status` module.
+
+### Using different modules ad-hoc
+
+- The command module does not accept pipes, so if necessary (not recommended due to idempotency) the `shell` module can be used.
+- `cron` module for easily create or delete recurrent jobs.
+- Managing repositories with `git` module.
+
+As always, playbooks are recommended for most of these cases.
+
+### Moving commands into YAML playbooks
+
+General pattern for naming playbooks:
+
+- *main.yml*: Playbook that automates the whole maintenance of the host
+- The rest of the names describe the general purpose
+
+### Making playbooks more Ansible-ish
+
+> For this part, I think it is better to look at the docs, as the course explains the concepts very near to the given examples and its not very translatable to notes.
+
+The `copy` module for copying files with given permissions, etc. It can do multiple files at once by using the `with_items` clause and **Jinja**. Example:
+
+```yaml
+- name: Copy some files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - src: file1
+      dest: ~/file1
+    - src: file2
+      dest: ~/file2
+```
+
+Then Ansible runs the task for each of the values of `with_items`, as in a loop. The syntax `{{ item['src'] }}` can also be used, an safer when the the property has special characters.
+
+For boolean values, both of the pairs *true*/*false* or *yes*/*no* can be used.
+
+For running playbooks, the `ansible-playbook` command is used.
+
+### Limiting to specific servers and ansible-inventory
+
+As in ad-hoc, the `--limit` argument can be used to limit the targeted hosts for a playbook to a certain group, host, negation, etc.
+
+The `ansible-inventory` command gives information about the hosts managed on the inventory file.
 
