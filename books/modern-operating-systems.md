@@ -87,13 +87,13 @@ Repàs d'interrupcions (figura inferior):
 4. Si la CPU l'accepta, s'envia la interrupció a la CPU
    Per evitar solapament d'interrupts, la CPU pot deshabilitar l'acceptació d'aquests. Llavors s'acumularan al interrupt controller, que decidirà quina deixa passar primer.
 
-![0ae6f3dd-257c-487b-966f-9690b7f42ba4.jpeg](img/interruptions.jpeg)
+![mos-interruptions.jpeg](img/mos-interruptions.jpeg)
 
 ### Busos
 
 Amb ordenadors més complexos, un sol bus de dades no és suficient. Per exemple així estan estructurats els busos amb un sistema Pentium:
 
-![pentium.jpeg](img/pentium.jpeg)
+![mos-pentium.jpeg](img/mos-pentium.jpeg)
 
 Entre els busos destaquen els estandaritzats:
 
@@ -253,3 +253,65 @@ Com funcionen els fitxers i directoris a UNIX:
 
 - Com un VM però donant accés directe als recursos particionant-los
 - Es perd el dinamisme però es guanya eficiència i simplicitat.
+
+
+# Processes and Threads
+
+## Processes
+
+A process is an abstraction that represents a running program.
+
+### The Process Model
+
+The following diagram offers a great visualization to understand multiprogramming:
+
+![mos-multiprogramming.png](img/mos-multiprogramming.png)
+
+Important difference between program and process:
+
+- Program: The code, an algorism that is used to perform a task
+- Process: Abstract idea that represents the activity of doing such task
+
+### Process Creation
+
+- **Daemon**: A process running in the background
+
+The *fork* syscall creates is an exact (except for minor details) copy of the parent. It can later become another program by using the *exec* syscall.
+
+
+### Process Termination
+
+Different types of termination:
+
+- Normal exit
+- Error exit
+- Fatal error
+- Killed
+
+The first two are voluntary, and correspond to the *exit* syscall. The last two are not voluntary, and are produced by a signal sent from the OS or another program, respectively.
+
+### Process Hierarchies
+
+- **Process group**: Set of processes formed by a process and all of its descendants.
+
+The *kill* syscall allows to send signals to an individual process or to its process group.
+
+On startup, the *init* process (PID 1) has as many children as terminals. Then login is performed in one of them, a shell is started (and maybe afterwords an X session, etc).
+
+### Process States
+
+> Concepts from this section were already familiar from the OS subject
+
+The *block* state allows us to think about syscalls as nothing more that other processes that are normally blocked and, when signaled, they perform a certain task and, when finished, the user process returns to ready. This is not real (as syscalls are called by interruptions, not signals), but is an abstraction that resembles the Microkernel OSs.
+
+### Implementation of Processes
+
+The OS keeps a *Process Table* containing all the control information about the running processes. The following figure shows the contents of each entry of this table:
+
+![mos-pcb.png](img/mos-pcb.png)
+
+### Modeling Multiprogramming
+
+Multiprogramming allows for a better use of CPU, as when processes are waiting for I/O, the CPU can keep working on other processes instead of waiting.
+
+As more processes are involved (and less dependant of I/O), more work will be outputed by the CPU. This phenomemon causes, for example, that a faster memory may also increase the CPU effective speed, as more processes can be running instead of waiting for I/O.
