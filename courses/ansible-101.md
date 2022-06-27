@@ -46,3 +46,65 @@ In Ansible playbooks, we define the state that we want our machines to be. Due t
 This behavior can be used to *check* if the state of a machine has been modified, by for example running playbooks periodically and triggering an event on a not *ok*.
 
 For this reason it is always recomended to use built-in modules, as they guarantee idempotency. Alternatively, scripts should be written idempotent.
+
+
+## Ad-hoc tasks and Inventory
+
+### Intro to ad-hoc commands
+
+Normally we use Ansible through Playbooks, as those commands can be easily reproducible. For debugging or monitoring purposes, however, *ad-hoc* commands are very useful as they are faster to write.
+
+### Multi-VM Vagrant configuration
+
+With Vagrant one can start multiple VMs in a single Vagrant file. Also available in the examples.
+
+### Multi-host inventory
+
+- Comments with #
+- Groups in brackets (for example `[db]`)
+
+We can also make groups of groups with `:children`. Example:
+```
+[group1]
+host1
+...
+
+[group2]
+host3
+...
+
+# Using :children for group of groups
+[multigroup:children]
+group1
+group2
+```
+
+We can also give variables for groups with `:vars`. For example:
+```
+[multigroup:vars]
+ansible_ssh_user=myuser
+```
+
+### Forks and parallellization
+
+Ansible (by default) runs 5 commands in parallel. Option `-f` can change the number of forks, so 1 would make it sequential.
+
+Ad-hoc commands always report *change*, as without a module, Ansible, is unable to figure out if something has really changed or not.
+
+### Setup module
+
+The `setup` module gives all the information Ansible has about a server. Useful for reference when building a playbook for that host.
+
+### Becoming root
+
+For installing packages, the `-b` option (become) is necessary to have root privileges. If becoming superuser requires a password, the `-K` option will ask for it and proceed.
+
+### ansible-doc
+
+Ansible documentation in the [website](docs.ansible,com) or terminal using `ansible-doc` (offline).
+
+### Targeting inventory groups
+
+A single host can be targeted (or ignore) with `--limit` argument followed by a regexp. Not necessary until debugging with quite advanced stuff.
+
+
