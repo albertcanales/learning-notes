@@ -169,3 +169,60 @@ As in ad-hoc, the `--limit` argument can be used to limit the targeted hosts for
 
 The `ansible-inventory` command gives information about the hosts managed on the inventory file.
 
+
+## A first real-world playbook
+
+### Our first real-world playbook
+
+We can specify variables to be considered before running a play with the following syntax:
+
+```yaml
+vars_files:
+- vars.yaml
+```
+
+For styling purposes, tasks on a playbook can be divided into `pre_tasks`, `tasks` and `post_tasks`
+
+Downloading in apt can have problems due to cache. The following task fixes it:
+
+```yaml
+pre_tasks:
+  - name: Update apt cache if needed
+    apt:
+      update_cache: true
+      cache_valid_time: 3600
+```
+
+### Adding handlers
+
+Sometimes is interesting to trigger a task only when another one applies changes. This is possible with Ansible, and the triggered task is called **handler**.
+
+The triggering task has an attribute `notify: <name of the handler>`. Then the *handlers* section is added like so:
+
+```yaml
+handlers:
+  - name: Name of my first handler
+    module, etc.
+```
+
+An example of this could be a service, as changing the configuration (trigger) often requires to restart that service (handler).
+
+### Installing Java and Solr
+
+When downloading files, it is better to specify the whole path to guarantee idempotency.
+
+Some more interesting modules:
+- `get_url`: Downloads file from url, similar to wget command.
+- `unarchive`: Equivalent to unzip, untar, etc commands.
+
+`creates` is a common parameter to guarantee idempotency. If a certain thing exists (for example a file), there is no need to apply changes. In that case, it sometimes reports *skipped* instead of *ok*, depending on the module.
+
+When working with long attributes, two interesting operators can be used for legibility purposes:
+
+- `>`: All the lines afterwards will be joined with a space in between
+- `|`: All the lines afterwards will be joined with newlines in between
+
+### Checking playbook syntax
+
+Syntax can be checked without running the playbook with the `--syntax-check` argument.
+
