@@ -315,3 +315,99 @@ The OS keeps a *Process Table* containing all the control information about the 
 Multiprogramming allows for a better use of CPU, as when processes are waiting for I/O, the CPU can keep working on other processes instead of waiting.
 
 As more processes are involved (and less dependant of I/O), more work will be outputed by the CPU. This phenomemon causes, for example, that a faster memory may also increase the CPU effective speed, as more processes can be running instead of waiting for I/O.
+
+
+## Threads
+
+### Thread Usage
+
+Threads can be thought as (mini) processes, running parallel and **sharing adress space**. Moreover, they are faster to be created than processes.
+
+For example, workers on a webserver. They are threads that go to *ready* whenever the dispatcher wakes them up (because a petition has arrived).
+
+In short, they acomplish two things at the same time that, when, if only using processes, we would have to focus on one and ditch the other.
+
+- *Blocking*: Simplifies processes code as reduces complexity. Present on single threaded processes
+- *Parallelism*: Improves performance as work can be done while waiting for a blocked call. Present in finite-state processes
+
+In general, programming with threads is more difficult because they break with some of the OS paradigms as they try to acomplish both.
+
+For example, for programs with a lot of data, three threads can be used: *input*, *processing* and *output*.
+
+### The Classical Thread Model
+
+We can also think as processes as a group of threads. This grouping has two objectives.
+
+- *Resource gruping*: They can share text, data...
+- *Execution*: Each thread has its own PC, registers, stack...
+
+There is no protection between threads, but it is not really necessary as they are created by the same user (because they are the same process), and thus should not be hostile to one another. 
+
+![mos-thread-items](img/mos-thread-items.png)
+
+Threads go through the same states as processes, but no hierarchy is commonly used, only the TID (Thread ID).
+
+Unlike processes, who **compete** for resources, threads **share** this resources. Thus these function calls are used:
+
+- `yield`: Let another thread take the CPU
+- `join`: Wait for another thread to exit to become ready
+
+### POSIX Threads
+
+A standard is defined for threads: **Pthreads**. Some function calls for managing them are also defined, very similar to system calls.
+
+### Implementing Threads in User Space
+
+![mos-thread-userspace](img/mos-thread-userspace.png)
+
+Threads can be implemented in user space, kernel space or a hybrid between both.
+
+Implementing threads in user space has the following pros:
+
+- **Faster**, as no context change is needed
+- Allows a **customised scheduling algorism** to be used
+- **Compatible with single-threaded OSs**, as the kernel sees no difference because is another process like the rest
+
+But also has the following cons:
+
+- **No blocking syscalls and page faults**. A workaround to this problem is to use the `select` syscall, that indicates if a syscall will be blocking or not (this is called a *wrapper* or *jacket*). Then the following logic is applied:
+    - If it was blocking, move to another thread
+    - If it was not blocking, continue with the current one
+- **A thread change cannot be forced**. It is the running thread that has to give up the CPU. There could be an interrupt for changing threads (simulating the context changing of the OS) indise the process, but it would add up too much overhead
+
+### Implementing Threads in the Kernel
+
+In short, having threads managed by kernel space inverts the pros and cons of doing so in user space.
+
+- **Slower**, as it requires a syscall for changing threads. To lighten this effect, *thread recycling* can be used
+- It solves the problems on blocking system calls and page faults.
+- The treatment for signals has to be redefined. Which thread attends the signal?
+
+### Hybrid implementations
+
+The most used hybrid to maximise the pros and minimise the cons of both systems consists on *kernel threads*, each one of them multiplexed into a group of *user threads*.
+
+### Scheduler Activations
+
+Basically, kernel threads with optimisations. There are some important concepts such as **virtual processors** or **upcalls** (similar to signals applied to threads).
+
+### Pop-Up Threads
+
+Another optimisation for threads, this time focused in distributed systems. In this case security is lowered in order to increase efficiency.
+
+### Making Single-Threaded Code Multithreaded
+
+Making a multithreaded program introduces some new problems and their corresponding solution:
+
+- Problem: Shared global variables like `errno` can be undesirably rewritten between processes
+- Solution: Not sharing global variables, instead using *private global variables* (there are syscalls for managing them)
+
+- Problem: Overlaping syscalls (for example: t1 prepares values for syscall; thread change; t2 prepares values for syscall; t2 traps)
+- Solution: Mask indicating if a system library is in use, sacrificing some paralellism.
+
+- Problem: When a signal arrives, who it belongs to?
+- Solution: Later discussed
+
+- Problem: How the kernel manages stack growth on stack fault?
+- Solution: Later discussed
+
