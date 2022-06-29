@@ -302,3 +302,77 @@ The default *fact* gathering on a play can be disabled with the attribute `gathe
 
 A *facts script* can be used to only register certain facts.
 
+
+## Ansible Vault and Roles
+
+### Encrypting a vars file with Vault
+
+A YAML file (normally a vars one) can be encrypted with `ansible-vault encrypt <path-to-file>`.
+
+For running playbooks that use that file, the `--ask-vault-pass` argument can be passed to the `ansible-playbook` command. This approach cannot be easily automated, so it is sometimes convenient to store the password in a file and use the attribute `--vault-password-file`.
+
+### Decrypt, encrypt, edit, rekey, etc.
+
+A file can also be *decrypted* or *edited*. The password can be changed with *rekey*
+
+For best practices, it is better to keep the encypted and non-encrypted variables separated.
+
+### Task features - conditionals and tags
+
+The `when` attribute can be used (together with Jinja) to run a task on a certain condition. There also exists `changed_when` and `failed_when`.
+
+There also exists `ignore_errors` if it is desired to not fail on an error from the task.
+
+Some tasks can also have `tags` assigned, and then running that playbook with `tags=<tag>` will only run those tasks. Important not to use them too much.
+
+### Blocks
+
+Similar to a try and except structure. A group of tasks is run and, on fail, another group of tasks is run. As in tags, not necessary in most cases
+
+### Playbook organization
+
+Playbooks should be kept, in general, quite small. Ansible offers tool to guarantee this.
+
+### Includes and imports
+
+It is common to separate handlers on their own directory, and import them with (analogous for normal tasks):
+
+```yaml
+handlers:
+  -import_tasks: handlers/<handler_file>.yml
+```
+
+Variables can be passed to these imported tasks with `vars`.
+
+### Caution with dynamic tasks
+
+If the task has dynamic content `include_tasks` must be used.
+
+### Playbook includes
+
+Playbooks can be included with `import_playbook`.
+
+### Roles
+
+A *role* is a set of related tasks that can be called from one or multiple playbooks with extra tools that make it easier than importing a playbook.
+
+They are stored in the `roles/<role_name>` folder. They are made of two directories:
+
+- *meta*: There must be *main.yml*. Some more advanced stuff like dependencies.
+- *tasks*: Where the tasks are stored. There must be *main.yml*.
+
+Roles are by default stored on some path in the home directory
+
+### Options for including roles
+
+Roles can be specified in the `roles` section of the playbook, and they will be run at the start. If it is desired to call them at a certain moment, it is possible with `include_role`.
+
+
+### Real-world flexible role usage
+
+Due to its flexibility, there are roles available for installing and deploying specific software on **Ansible Galaxy**.
+
+To create an empty role, `ansible-galaxy role init <role_name>`.
+
+Due to the great amout of roles available, most times setting a service consists on choosing roles and writing few tasks to add some less fundamental functionality.
+
