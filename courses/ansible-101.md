@@ -226,3 +226,79 @@ When working with long attributes, two interesting operators can be used for leg
 
 Syntax can be checked without running the playbook with the `--syntax-check` argument.
 
+
+## Playbook handlers, environment vars, and variables
+
+### Playbook handlers
+
+By default, handlers are called at the end of the playbook. This can be changed by the `flush_handlers` meta task:
+
+```yaml
+- name: This flushes all pending handlers up to this moment.
+  meta: flush_handlers
+```
+
+There is a module called `fail` that always fails.
+
+If a tasks fails, the pending handlers won't be run. This behavior can be changed by the `--force-handlers` attribute.
+
+As handers are a kind of task, a handler can notify another handler.
+
+For standarisation, it is a good practice to give handlers' name no capital start letter, puntuation, etc.
+
+### Environment variables
+
+Ansible already has the environment variables of the remote host.
+
+For changing an environment variables (or adding a new one), the `lineinfile` module can be used:
+
+```yaml
+- name: Adding the ENV_VAR to remote user's shell
+  lineinfile:
+    dest: "~/.bash_profile"
+    regexp: '^ENV_VAR='
+    line: 'ENV_VAR = value'
+```
+
+An environment variable can be used on the playbook with the `register` attribute.
+
+```yaml
+- name: Get value of an environment variable.
+  shell: 'source ~/.bash_profile && echo $ENV_VAR'
+  register: foo
+```
+
+In the example, `foo` now contains a dictionary with *stdin*, *stdout*, and *stderr*. The `debug` mode can be used to echo the value.
+
+```yaml
+- debug: "The value of the variable is {{ foo.stdout }}."
+```
+
+A variable for a task or a whole play can be declared with the `environment` attribute. 
+
+The second option is to declare them at play level with `vars`, and later on injected into the necessary tasks with `environment`.
+
+### Dynamic variable files for multi-OS
+
+Variables can also be imported on a playbook from a *variables file* with `vars_file`. The *variables file* also follows a YAML structure.
+
+This allows, for example, to have installation playbooks compatible with different package managers, as a different name for the service can be given for each one. To achive this, one could do:
+
+```yaml
+pre_tasks:
+  - name: Lead variable files.
+    include_vars: {{ item }}
+    with_first_found:
+      - "vars/{{ ansible_os_family }}.yml"
+      - "vars/default.yml"
+```
+
+- The `with_first_found` item runs a loop looking for file, and stores in `item` the first file that can be read.
+- The `ansible_os_family` is part of the *facts* Ansible can gather about a host. The rest can be seen with the module `setup`.
+
+### Ansible facts and setup modules
+
+The default *fact* gathering on a play can be disabled with the attribute `gather_facts`
+
+A *facts script* can be used to only register certain facts.
+
