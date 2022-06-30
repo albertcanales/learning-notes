@@ -411,3 +411,45 @@ Making a multithreaded program introduces some new problems and their correspond
 - Problem: How the kernel manages stack growth on stack fault?
 - Solution: Later discussed
 
+
+## Interprocess Communication
+
+- **IPC**: InterProcess Communication.
+
+Some principles can also be applied to threads.
+
+### Race conditions
+
+A *race condition* is when two processes collide with each other in some way, such that output differs depending on the running order. Normally very difficult to debug.
+
+### Critical regions
+
+Race condition happens due a use by both processes of some sort of resource. The resources used by a process are called *critical region*. To avoid the race condition, one can do *mutual exclusion*, that is, that the critical region of both processes cannot overlap.
+
+The objective is:
+
+- To avoid collision of the critical regions
+- Independence to amount or speed of CPU
+- No blocking outside the critical regions
+- Not waiting indefinetly to enter the critical region
+
+### Mutual Exclusion with Busy Waiting
+
+#### Disabling interrupts
+
+It is not possible with multicore, and giving user full power of the CPU can make any bug fatal, so it is not a great idea.
+
+#### Lock Variables
+
+It does not actually solve the mutual exclusion problem.
+
+#### Strict Alternation
+
+Like busy waiting but taking turns. This solves mutual exclusion but also blocks outside the critical region, so it is not scalable.
+
+#### Peterson's Solution
+
+What is used nowadays.
+
+> My book here is missing a chunk of pages, until section 2.5. Due to the discontinuity, I could not follow the rest of the chapter.
+
