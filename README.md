@@ -7,6 +7,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 ## Books
 
 - [Modern Operating Systems - Andrew Tanenbaum](https://github.com/albertcanales/learning-notes/blob/main/books/modern-operating-systems.md)
+- [Clean Architecture - Robert C. Martin](https://github.com/albertcanales/learning-notes/blob/main/books/clean-architecture.md)
 
 ## Talks
 
