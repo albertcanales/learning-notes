@@ -8,6 +8,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 
 - [Modern Operating Systems - Andrew Tanenbaum](/books/modern-operating-systems.md)
 - [Clean Architecture - Robert C. Martin](/books/clean-architecture.md)
+- [Computer Networking: A Top-Down Approach - Kurose & Ross](/books/computer-networking.md)
 
 ## Talks
 
