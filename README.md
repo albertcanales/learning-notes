@@ -14,6 +14,8 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 
 - [Practical Guide to Hacking RFID/NFC - Slawomir Jasek](/talks/practical-guide-rfid-nfc.md)
 - [The Tragedy of Systemd - Benno Rice](/talks/tragedy-of-systemd.md)
+- [Why would a Python programmer learn Rust when there are no jobs in it](talks/why-python-programmer-learn-rust.md)
+
 
 ## Courses
 
