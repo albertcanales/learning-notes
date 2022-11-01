@@ -45,3 +45,31 @@ Each independent phase can be considered a compiler itself due to the definition
 
 The Optimiser can not produce optimal code, but it tries to get close (more on this later).
 
+
+## High-Level View of Translation
+
+### Understanding the Input
+
+#### Syntax
+
+The *Grammar* is the set of rules that are obeyed by all valid programs. Thus, it is the one defining the concept of valid.
+
+The task of the Parser and the Scanner is to check efficiently if a given program obeys the language's grammar.
+
+A simplified process for syntax validation would be (applied to English as an example):
+
+1. Check if all words exists
+2. Replace its word by its more abstract type (syntactic category)
+3. Test if the abstracted version of the phrase matches the patterns described in the defined rules
+
+The last phase is done using *derivation*, that is, combining simple patters to match more complex phrases. Each step in the process of derivation consists in decomposing by one single rule. If the process completes (it arrives to a decomposition matchiing the input pattern), it is valid.
+
+The two phases of checking syntax can be summarised in:
+
+1. Scanning: Abstracting the syntactic category of each word
+2. Parsing: Finding a derivation using gramatical rules
+
+#### Meaning
+
+Understanding meaning goes beyond checking a well-formed expression, as it requires understanding of context. Some examples would be undefined variables, type errors, etc. as the correctness of this does not depend on grammar, but on the context given by the previous sentences.
+
