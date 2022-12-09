@@ -17,7 +17,6 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [The Tragedy of Systemd - Benno Rice](/talks/tragedy-of-systemd.md)
 - [Why would a Python programmer learn Rust when there are no jobs in it](talks/why-python-programmer-learn-rust.md)
 
-
 ## Courses
 
 - [Django Crash Course - Academind](/courses/django-crash-course.md)
@@ -25,3 +24,4 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [How to HomeLab - Learn Linux TV](/courses/how-to-homelab.md)
 - [Ansible 101 - Jeff Geerling](/courses/ansible-101.md)
 - [Docker Tutorial for Beginners - Techworld with Nana](/courses/docker-tutorial.md)
+- [Advent Of Cyber 2022 - TryHackMe](/courses/advent-of-cyber-2022.md)
