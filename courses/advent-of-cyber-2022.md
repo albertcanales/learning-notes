@@ -64,3 +64,15 @@ A hydra command will usually look like so:
 
 	hydra -l USER -P WORDLIST SERVER SERVICE
 
+# Day 6 - Email Analysis
+
+- *emlAnalyser*: Parse mail data for a better view of the contents
+- emailrep.io / ipinfo.io / Talos Reputation: Get reputation of mail server or IP
+- Browserling / Wannabrowser: Sandboxes browsers for opening links
+- VirusTotal / InQuest Labs: attachment analysis (by upload, link or hash)
+
+# Day 7 - CyberChef
+
+*Cyberchef* is a GUI tool for deep analysis and parsing of data or files. Has lots of options and, for well-known operations, it is quite fast compared to writing custom scripts.
+
+*Defanfing* an URL means making it unclickable.
