@@ -76,3 +76,74 @@ A hydra command will usually look like so:
 *Cyberchef* is a GUI tool for deep analysis and parsing of data or files. Has lots of options and, for well-known operations, it is quite fast compared to writing custom scripts.
 
 *Defanfing* an URL means making it unclickable.
+
+# Day 8 - Smart Contracts
+
+> I did not take notes on this one as it is not one of my interests.
+
+# Day 9 - Pivoting
+
+*/.dockerenv* is a file present in Docker containers. Useful for checking if a compromised application is running inside one.
+
+Some commands in the Metasploit console:
+
+	search MODULE
+	use MODULE
+
+	# Once a module is used...
+	info (description, options, CVE, etc)
+	show options
+	set OPTION VALUE
+	check 		# not always available
+	run
+
+When running a module, a session may be opened. The commands for managing sessions are:
+
+	# show sessions
+	sessions
+
+	# upgrade the session to Meterpreter
+	sessions -u SESSION_ID
+
+	# open (interact) with a session
+	session -i SESSION_ID
+
+	# *once in the session*, go back to the ms console
+	background
+
+Meterpreter allows running more complex commands on top of the normal command line, for example:
+
+	# get system information (OS...)
+	sysinfo
+
+	# upload a local file to the remote machine
+	upload SRC TARGET
+
+	# display interfaces
+	ipconfig
+
+	# resolve a host
+	resolve HOST
+
+
+In order to pivot through the network, one can use a Meterpreter session in combination with MS internal routing table.
+
+	# Example usage
+	route [add/remove] subnet netmask [comm/sid]
+
+	# Output the routing table
+	route print
+
+This greatly facilitates pivoting from the attacker's machine through the Meterpreter session.
+
+
+*Socks Proxy* is used to channel the traffic between the attacker and host machine. It can be used in combination with proxychains with any command, but then it has to be on port 9050 (on the attacker's side) by default.
+
+
+Some interesting modules (partial names):
+
+- ignition_laravel
+- postgres_schemadump
+- postgres_sql
+- socks_proxy
+- ssh_login
