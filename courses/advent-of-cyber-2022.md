@@ -147,3 +147,41 @@ Some interesting modules (partial names):
 - postgres_sql
 - socks_proxy
 - ssh_login
+
+# Day 10 - Hack a Game
+
+*Cetus* is a tool for manipulating memory of a WebASM application.
+
+If no value is provided in the search field, Cetus does a *differential comparison* (comparing each value with the one in the same adres before).
+
+
+# Day 11 - Memory Forensics
+
+*Volatility* is a tool to analyse memory dumps (running processes, clipboard contents, network connections, etc.). There is a list of [plugins](https://volatility3.readthedocs.io/en/stable/volatility3.plugins.html) for these tests.
+
+
+# Day 12 - Malware Analysis
+
+Common in malware:
+
+- Network connections: Either internal (for lateral movement) or external (for remote access and/or payload download)
+- Registry key modifications: For persistance in the machine (for example, automatically run on boot)
+- File manipulations: Downloading and/or creating new files needed for execution
+
+- Static Malware Analysis does not execute the code, only inspects the binary
+- Dynamic Malware Analysis observes the results of executing the code, should always be done in a sandboxed environment
+
+Tools for Static Analysis:
+
+- Detect It Easy
+- Capa
+
+Tools for Dynamic Analysis:
+
+- Process Monitor (Windows)
+
+
+# Day 13 - Packet Analysis
+
+*PCAP*: Packet capture. Used to make a report for upper-level analysts (Suspicious IPs, names, files, etc).
+
