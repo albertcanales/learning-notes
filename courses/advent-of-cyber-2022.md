@@ -64,24 +64,24 @@ A hydra command will usually look like so:
 
 	hydra -l USER -P WORDLIST SERVER SERVICE
 
-# Day 6 - Email Analysis
+## Day 6 - Email Analysis
 
 - *emlAnalyser*: Parse mail data for a better view of the contents
 - emailrep.io / ipinfo.io / Talos Reputation: Get reputation of mail server or IP
 - Browserling / Wannabrowser: Sandboxes browsers for opening links
 - VirusTotal / InQuest Labs: attachment analysis (by upload, link or hash)
 
-# Day 7 - CyberChef
+## Day 7 - CyberChef
 
 *Cyberchef* is a GUI tool for deep analysis and parsing of data or files. Has lots of options and, for well-known operations, it is quite fast compared to writing custom scripts.
 
 *Defanfing* an URL means making it unclickable.
 
-# Day 8 - Smart Contracts
+## Day 8 - Smart Contracts
 
 > I did not take notes on this one as it is not one of my interests.
 
-# Day 9 - Pivoting
+## Day 9 - Pivoting
 
 */.dockerenv* is a file present in Docker containers. Useful for checking if a compromised application is running inside one.
 
@@ -148,19 +148,19 @@ Some interesting modules (partial names):
 - socks_proxy
 - ssh_login
 
-# Day 10 - Hack a Game
+## Day 10 - Hack a Game
 
 *Cetus* is a tool for manipulating memory of a WebASM application.
 
 If no value is provided in the search field, Cetus does a *differential comparison* (comparing each value with the one in the same adres before).
 
 
-# Day 11 - Memory Forensics
+## Day 11 - Memory Forensics
 
 *Volatility* is a tool to analyse memory dumps (running processes, clipboard contents, network connections, etc.). There is a list of [plugins](https://volatility3.readthedocs.io/en/stable/volatility3.plugins.html) for these tests.
 
 
-# Day 12 - Malware Analysis
+## Day 12 - Malware Analysis
 
 Common in malware:
 
@@ -181,12 +181,12 @@ Tools for Dynamic Analysis:
 - Process Monitor (Windows)
 
 
-# Day 13 - Packet Analysis
+## Day 13 - Packet Analysis
 
 *PCAP*: Packet capture. Used to make a report for upper-level analysts (Suspicious IPs, names, files, etc).
 
 
-# Day 14 - Web Applications
+## Day 14 - Web Applications
 
 *Access Control* determines, once authenticated, if a user can access a resource, modify it, etc.
 
@@ -195,7 +195,7 @@ Tools for Dynamic Analysis:
 *IDOR* (Insecure direct object reference): Vulnerability that allows simple input manipulation to bypass access control. For example using the ID directly on the URL for accessing information.
 
 
-# Day 15 - Secure Coding
+## Day 15 - Secure Coding (File Uploads)
 
 Unrestricted Input Validation on file uploads can lead to:
 
@@ -218,4 +218,22 @@ Some measures:
 - File Size Validations
 - Renaming the file (preferably to something random)
 - Malware Scanning (ClamAV)
+
+
+## Day 16 - Secure Coding (SQL Injection)
+
+When possible, input casting into its correspondant type is enough to avoid SQL Injections. When it is a string, one could use prepared statements to avoid other clauses or statements to be ran.
+
+As an attacker, some basic techniques:
+
+- To bypass a restriction, append a trivial condition that makes as "OR 1=1" that makes all rows pass
+- When more conditions are followed in the statement, use comments (in SQL, --): "OR 1=1 -- this is commented (an after too!)"
+- To show data different from the returned one, use a Union. For example, if the columns "id, product_name, description, quantity" are expected and product_name and description for a certain id are shown in the UI, we could use "-1 UNION ALL SELECT null, username, name, null FROM users"
+
+
+## Day 17 - Secure Coding (Regex)
+
+Regex can be used in HTML's input tags using the `patterns` attribute. If possible, it is prefered to be strict on the `type` attribute.
+
+[OWASP CheetSheet for Whitelisting in Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#validating-free-form-unicode-text)
 
