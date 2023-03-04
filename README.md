@@ -26,3 +26,19 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Ansible 101 - Jeff Geerling](/courses/ansible-101.md)
 - [Docker Tutorial for Beginners - Techworld with Nana](/courses/docker-tutorial.md)
 - [Advent Of Cyber 2022 - TryHackMe](/courses/advent-of-cyber-2022.md)
+
+
+## More Interesting Resources
+
+Here there is some more interesting content, but for which I've taken no notes (for now :P).
+
+### Talks
+
+- [I'll Let Myself In: Tactics of Physical Pen Testers - Deviant Ollam](https://youtu.be/rnmcRTnTNC8)
+- [Why Isn't Functional Programming the Norm? – Richard Feldman](https://youtu.be/QyJZzq0v7Z4)
+- [Performance Matters - Emery Berger](https://youtu.be/r-TLSBdHe1A)
+
+
+### Articles
+
+- [Makefile Tutorial - theicfire](https://makefiletutorial.com/)
