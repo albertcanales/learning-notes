@@ -453,3 +453,22 @@ What is used nowadays.
 
 > My book here is missing a chunk of pages, until section 2.5. Due to the discontinuity, I could not follow the rest of the chapter.
 
+
+# Memory Managment
+
+Depending on the Memory Manager, different hierarchies may be used.
+
+## No memory abstraction
+
+The simplest one, used in old or embedded systems, where the OS is stored in ROM and the User Space is in RAM.
+
+In these systems, is it common to have no multiprocess at all, but there can be multithreading. In case of existance of multiprocess, it uses:
+
+- Swapping: Using the disk drive to save all contents of memory
+- Static relocation: When loading programs, the OS offsets all their memory adresses by the first position used by that program.
+
+These solutions are not very fast nor general.
+
+## Memory Abstraction: Adress Spaces
+
+An **Adress Space** is a set of adresses that a program can use to access memory, it is individual for each process.

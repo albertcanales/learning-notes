@@ -10,6 +10,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Clean Architecture - Robert C. Martin](/books/clean-architecture.md)
 - [Computer Networking: A Top-Down Approach - Kurose & Ross](/books/computer-networking.md)
 - [Engineering a Compiler - Cooper & Torczon](/books/engineering-a-compiler.md)
+- [The Cathedral and The Bazaar - Eric S. Raymond](/books/the-cathedral-and-the-bazaar.md)
 
 ## Talks
 

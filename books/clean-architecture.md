@@ -28,4 +28,13 @@ It is commonly thought that behaviour is more important than structure, but in r
 
 It is the job of the Software Architect to ensure that structure is valued over behaviour, as by doing so, future changes will be applied much more easily.
 
+## Paradigm Overview
+
+Each paradigm restricts the programmer in a certain way, to prevent bad practices. Some paradigms:
+
+- Structured Programming: Restricts *direct transfer of control*. No gotos, only use of conditionals or loops to control the program flow
+- Object-Oriented Programming: Restricts *indirect transfer of control*. Reduces functionality on function pointers, improving use of polymorphism.
+- Functional programming: Restricts *assigment*. Forces immutability of symbols
+
+## Structured Programming
 
