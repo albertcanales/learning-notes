@@ -11,6 +11,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Computer Networking: A Top-Down Approach - Kurose & Ross](/books/computer-networking.md)
 - [Engineering a Compiler - Cooper & Torczon](/books/engineering-a-compiler.md)
 - [The Cathedral and The Bazaar - Eric S. Raymond](/books/the-cathedral-and-the-bazaar.md)
+- [The Rust Programming Language - Steve Klabnik & Carol Nichols](/books/the-rust-programming-language.md)
 
 ## Talks
 
@@ -32,12 +33,19 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 
 Here there is some more interesting content, but for which I've taken no notes (for now :P).
 
+### Books
+
+- [The Jargon File - Eric S. Raymond](http://www.catb.org/jargon/html/)
+
 ### Talks
 
 - [I'll Let Myself In: Tactics of Physical Pen Testers - Deviant Ollam](https://youtu.be/rnmcRTnTNC8)
 - [Why Isn't Functional Programming the Norm? – Richard Feldman](https://youtu.be/QyJZzq0v7Z4)
 - [Performance Matters - Emery Berger](https://youtu.be/r-TLSBdHe1A)
 
+### Courses
+
+- [Linux Journey](https://linuxjourney.com/)
 
 ### Articles
 
