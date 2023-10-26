@@ -106,4 +106,56 @@ In reality, we provide a configuration (yaml) to K8s instead of creating/editing
 
 	kubectl apply -f CONF_FILE
 
-K8s automatically created or updates the deployments to match the configuration given.
+We can also delete the component from the configuration file with:
+
+	kubectl delete -f CONF_FILE 
+
+K8s automatically creates or updates the deployments to match the configuration given.
+
+### Configuration File
+
+The configuration is devided in 3 parts:
+
+- Metadata: Name, etc.
+- Specification: Depending on the kind of component
+- Status: **Generated and maintained by K8s**
+
+K8s automatically updates the status based on the real values (from etcd). If it does not match the specification, it makes the necessary changes to make them match.
+
+#### Deployment configuration
+
+As said before, to manage pods we configure the deployment. A deployment's configuration looks like this:
+
+```yaml
+apiVersion: -
+kind: Deployment
+metadata:
+	name: -
+	labels: ...
+# Until here it does not depend on the type
+spec:
+	replicas: 2
+	selector: ...
+	template: ...
+```
+
+The template defines the configuration of the pod, it has its own metadata and specification (like a configfile within a configfile).
+
+#### Labels and selectors
+
+It exists so the deployment knows which containers depend on it. The container defines a label and the deployment matches those pods with that label.
+
+The deployment can also have a label, which it can be used by a Service (for example) to know which deployments it has to interact with.
+
+#### Ports
+
+Service has:
+- port: The external one
+- targetPot: The one that matches with the pod
+
+Pod has:
+- containerPort: Should match the targetPort
+
+To get the ips assigned to pods:
+
+	kubectl get pod -o wide
