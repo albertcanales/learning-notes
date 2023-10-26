@@ -159,3 +159,86 @@ Pod has:
 To get the ips assigned to pods:
 
 	kubectl get pod -o wide
+
+### Demo: MongoDB and MongoExpress
+
+Components:
+
+- MongoDB pod with an Internal Service attached
+- Mongo Express Pod with an External Service
+- ConfigMap to store DB URL
+- Secret to store DB User / DB Password
+
+In the deployment, we will reference the values from the ConfigMap and Secret to configure the Mongo Express.
+
+So the data flows like so: Browser -> External Service -> Mongo Express Pod -> Internal Service -> MongoDB.
+
+The configuration files are in the following links: <https://gitlab.com/nanuchi/youtube-tutorial-series/-/tree/master/demo-kubernetes-components>.
+
+To configure a external service we set `type: LoadBalancer` (misleading name, as internal services also act as load balancers)
+
+### Namespaces
+
+To have a rough idea, it is an isolated cluster inside the K8s cluster. There are some by default:
+
+- kube-system: Must not modify, it contains processes for the master node
+- kube-public: Contains public facing data (even with no auth)
+- kube-node-lease: Contains ionformation about the availability of the nodes
+- default: Where everything goes by default
+
+One can create namespaces with `kubectl` and config files, as always.
+
+The idea of having namespaces is to group resources so it's more organized. It should be avoided for small projects.
+
+Some additional ideas to use namespaces:
+- To avoid collisions from multiple teams
+- To reuse components in Staging/Prod (or AB testing, etc) environments
+- Limiting access permissions or permissions
+
+Some considerations:
+- Most components cannot be used through namespaces. Service does not, for example
+- Some components cannot be inside a namespace (for example volume and node)
+
+The namespace can be assigned in the `metadata` section of the config.
+
+### Ingress
+
+External services can be accessed from outside, but through the node's IP (which is not convenient).
+
+Ingress is a component that behaves similarly to a Reverse Proxy, by forwading outside requests (though URL and TLS too) to internal services.
+
+The DNS has to be configured so that the domain name points to the node running the Ingress Component.
+
+> TO BE CONTINUED LATER
+
+### Helm
+
+The first use is as a Package Manager. A *package* is a Helm Chart, which is a collection of configuration files for certain application.
+
+Public registries are available at Helm Hub or though `helm search NAME`.
+
+Helm can also be used as templating engine. We can insert values from a file called `values.yml` (can be overriden with the `--set` flag), useful for CI/CD. It can also be overriden with another values file (`--values=VALS_FILE` flag)
+
+### Volumes
+
+There are three main components for volumes:
+- Persistent volume
+- Persistent volume claim
+- Storage Class
+
+Storage must be:
+- Non-dependant on pod's lifecycle
+- Available from all nodes
+- Resiliant from cluster's crashes
+
+When defining the storage, we must define the backend (type of storage): Local drive, cloud storage, etc.
+
+Local and remote storages have different use-cases. For example, local should not be used to store a DB's data because:
+- It is tied to a specific node
+- Does not survive to a cluster crash
+
+The storage must be available before the pods use it. Application pods use a Persistent Volume Claim component to request storage with certain characteristics, and K8s gives the adequate Persistent Volume so the pod can use it.
+
+As a note, Secret and ConfigMap are also volumes, but special as they are managed by K8s.
+
+StorageClass is a third type that allows Persistent Volumes to be created automatically when requested by a PVC.
