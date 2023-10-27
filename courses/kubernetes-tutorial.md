@@ -1,8 +1,6 @@
 # Kubernetes Tutorial
 
-## Intro to K8s
-
-Kubernetes does Container orchestration.
+[Docker Tutorial for Beginners - Techworld with Nana](https://youtu.be/X48VuDVv0do)
 
 ### Main K8s components
 
@@ -127,16 +125,16 @@ K8s automatically updates the status based on the real values (from etcd). If it
 As said before, to manage pods we configure the deployment. A deployment's configuration looks like this:
 
 ```yaml
-apiVersion: -
+apiVersion: x
 kind: Deployment
 metadata:
-	name: -
-	labels: ...
+    name: x
+    labels: ...
 # Until here it does not depend on the type
 spec:
-	replicas: 2
-	selector: ...
-	template: ...
+    replicas: 2
+    selector: ...
+    template: ...
 ```
 
 The template defines the configuration of the pod, it has its own metadata and specification (like a configfile within a configfile).

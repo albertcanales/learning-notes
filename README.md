@@ -27,6 +27,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Ansible 101 - Jeff Geerling](/courses/ansible-101.md)
 - [Docker Tutorial for Beginners - Techworld with Nana](/courses/docker-tutorial.md)
 - [Advent Of Cyber 2022 - TryHackMe](/courses/advent-of-cyber-2022.md)
+- [Kubernetes Tutorial for Beginners - Techworld with Nana](/courses/kubernetes-tutorial.md)
 
 
 ## More Interesting Resources
