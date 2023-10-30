@@ -2,6 +2,7 @@
 
 [Docker Tutorial for Beginners - Techworld with Nana](https://youtu.be/X48VuDVv0do)
 
+
 ### Main K8s components
 
 About pods and nodes:
@@ -30,6 +31,7 @@ To replicate pods, we create a Deployment for the pod. Thus we work with deploym
 
 To manage Deployments for Stateful apps (like DB), we use a Stateful set. This will ensure that there won't be data inconsistencies. It may be difficult, so sometimes DB's are directly out of the cluster.
 
+
 ### K8s Arquitecture
 
 Every node (or worker node) has 3 processes running:
@@ -51,6 +53,7 @@ For example, a small cluster may contain:
 - 2 master nodes (low on resources)
 - 3 worker nodes (higher in resources)
 
+
 ### Minikube and Kubectl
 
 To manage the cluster we use the API Server (master process). We can interact with it by:
@@ -59,6 +62,7 @@ To manage the cluster we use the API Server (master process). We can interact wi
 - CLI: For example kubectl (most features)
 
 Minikube allows use (for testing purposes, for example) to have both master and worker processes on the same machine.
+
 
 ### Kubectl commands
 
@@ -110,6 +114,7 @@ We can also delete the component from the configuration file with:
 
 K8s automatically creates or updates the deployments to match the configuration given.
 
+
 ### Configuration File
 
 The configuration is devided in 3 parts:
@@ -139,11 +144,13 @@ spec:
 
 The template defines the configuration of the pod, it has its own metadata and specification (like a configfile within a configfile).
 
+
 #### Labels and selectors
 
 It exists so the deployment knows which containers depend on it. The container defines a label and the deployment matches those pods with that label.
 
 The deployment can also have a label, which it can be used by a Service (for example) to know which deployments it has to interact with.
+
 
 #### Ports
 
@@ -157,6 +164,7 @@ Pod has:
 To get the ips assigned to pods:
 
 	kubectl get pod -o wide
+
 
 ### Demo: MongoDB and MongoExpress
 
@@ -174,6 +182,7 @@ So the data flows like so: Browser -> External Service -> Mongo Express Pod -> I
 The configuration files are in the following links: <https://gitlab.com/nanuchi/youtube-tutorial-series/-/tree/master/demo-kubernetes-components>.
 
 To configure a external service we set `type: LoadBalancer` (misleading name, as internal services also act as load balancers)
+
 
 ### Namespaces
 
@@ -200,6 +209,7 @@ Some considerations:
 The namespace can be assigned in the `metadata` section of the config.
 
 There are some tools for working with kubectl on different namespaces easier: [kubectx](https://github.com/ahmetb/kubectx#installation).
+
 
 ### Ingress
 
@@ -298,6 +308,7 @@ Public registries are available at Helm Hub or though `helm search NAME`.
 
 Helm can also be used as templating engine. We can insert values from a file called `values.yml` (can be overriden with the `--set` flag), useful for CI/CD. It can also be overriden with another values file (`--values=VALS_FILE` flag)
 
+
 ### Volumes
 
 There are three main components for volumes:
@@ -322,6 +333,7 @@ As a note, Secret and ConfigMap are also volumes, but special as they are manage
 
 StorageClass is a third type that allows Persistent Volumes to be created automatically when requested by a PVC.
 
+
 ### Stateful Sets
 
 A component for managing applications that require a state (for example databases).
@@ -338,3 +350,49 @@ As each pod mantains its physical data, when Master writes to his own the rest h
 The pod state (role in STS, etc) is also stored in the PV, so when the pod is replaced, the new one keeps the same identity.
 
 The pods are numerated in ascending order: 0 (master), 1, 2, 3... (slaves). Deletion and addition of pods keeps the continued ordering. A DNS name is also assigned to each pod (so identity is kept even if the IP is changed).
+
+
+### Services
+
+To get the IP address of a certain pod:
+
+	kubectl get pod -o wide
+
+#### ClusterIP
+
+Default service type for K8s.
+
+Meaning of service ports:
+- servicePort: Port in which the service expects requests to arrive
+- targetPort: Port in which selector will forward the request
+
+A single service can have multiple tuples of (servicePort, targetPort) defined. This is called a MultiPort Service, and it requires each tuple to also have a name.
+
+The service knows which pods correspond to him with the `selector` attribute. It matches the pods that have **all** the selector key-value pairs defined on their `labels` attribute.
+
+When a pod matches with a selector, K8s creates an Endpoint object with the name of the service to keep track of all the pods that are connected. Check with `kubectl get endpoints`.
+
+##### Headless Service
+
+Supose we don't want to access a random pod connected to the service, but a particular one. This is common on Stateful Applications, where the pods are not identical.
+
+We use Headless Services, which do not give an IP to the service and the pod's IP is directly returned.
+
+#### NodePort
+
+A service that is accessible from outside through a static port on each worker node. We specify this port with the `nodePort` value.
+
+To connect the node's opened port (nodePort) with the service's opened port (servicePort), a ClusterIP service is creted automatically.
+
+This is useful when we have a pod that we want ot be available in all the nodes, but it is not the most secure approach as it exposes the ports directly to outside the cluster.
+
+In most cases, the LoadBalancer type is preferred (more secure), but it can be useful for quick testing.
+
+#### LoadBalancer
+
+Seen before. It can depend on our cloud provider. We have the attributes:
+- nodePort: Port that will be accessible from outside
+- port: Port that the service listens to
+- targetPort: Port that the service forwards to
+
+We can see that a LoadBalancer is an extension of NodePort, which is an extension of ClusterIP
