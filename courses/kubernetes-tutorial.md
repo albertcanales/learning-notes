@@ -199,15 +199,96 @@ Some considerations:
 
 The namespace can be assigned in the `metadata` section of the config.
 
+There are some tools for working with kubectl on different namespaces easier: [kubectx](https://github.com/ahmetb/kubectx#installation).
+
 ### Ingress
 
 External services can be accessed from outside, but through the node's IP (which is not convenient).
 
-Ingress is a component that behaves similarly to a Reverse Proxy, by forwading outside requests (though URL and TLS too) to internal services.
+Ingress is a component that behaves similarly to a Reverse Proxy, by forwading outside requests (with URL and TLS too) to internal services.
 
 The DNS has to be configured so that the domain name points to the node running the Ingress Component.
 
-> TO BE CONTINUED LATER
+Note that the implementation difference between Internal and External port is:
+- Internal: Type ClusterIP (default) and no nodePort (only port and targetPort)
+- External: Type LoadBalancer and nodePort, port and targetPort
+
+For Ingress to be able to define the routes it needs an Ingress Controller. There are many options, the one created by K8s is Nginx Ingress Controller. [List of controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
+
+Depending on the Infra of the Cluster, the ingress implementation can be very different:
+- Cloud: Normally there is some solution given by the cloud provider
+- Bare Metal: An entrypoint has to be configured, which may not be trivial. Some advice [here](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/).
+
+#### Minikube demo
+
+First we install and run Nginx Ingress Controller:
+
+	minikube addons enable ingress
+
+In the example we make the dashboard accessible from outside the cluster using the Ingress. Its configuration is [here](https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/kubernetes-ingress/dashboard-ingress.yaml).
+
+To test the ingress implementation, we can modify `/etc/hosts` to map the given domain to the Ingress IP.
+
+#### Default backend
+
+If a request is recieved that has no matching route defined, it is sent to the default backend.
+
+We can modify this default backend behaviour, by creating an internal service with the same name.
+
+#### Some more complex use cases
+
+We can forward the requests to different services depending on the given path, for example:
+
+```yaml
+...
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /one
+        backend:
+          serviceName: service-one
+          servicePort: 8080
+      - path: /two
+        backend:
+          serviceName: service-two
+          servicePort: 8080
+```
+
+Or depending on the subdomain:
+
+```yaml
+...
+spec:
+  rules:
+  - host: one.example.com
+    http:
+      paths:
+        backend:
+          serviceName: service-one
+          servicePort: 8080
+  - host: two.example.com
+    http:
+      paths:
+        backend:
+          serviceName: service-two
+          servicePort: 8080
+```
+
+And we can also configure TLS with a Secret of type TLS (which has to be in the same namespace as the Ingress):
+
+```yaml
+...
+spec:
+  tls:
+  - hosts:
+    - example.com
+    secretName: example-tls-secret
+  rules:
+  ...
+```
+
 
 ### Helm
 
@@ -240,3 +321,20 @@ The storage must be available before the pods use it. Application pods use a Per
 As a note, Secret and ConfigMap are also volumes, but special as they are managed by K8s.
 
 StorageClass is a third type that allows Persistent Volumes to be created automatically when requested by a PVC.
+
+### Stateful Sets
+
+A component for managing applications that require a state (for example databases).
+
+- Stateless applications are managed by deployments
+- Stateful applications are managed by a Stateful Set component (STS)
+
+In stateless applications, no identity has to be tracked as all replicas are identical and interchangable.
+
+However in stateful applications, to avoid data races, an identity is given (and mantained) to each replica. One of the replicas is the master (has write permission), and the rest are slaves.
+
+As each pod mantains its physical data, when Master writes to his own the rest have to also make this update.
+
+The pod state (role in STS, etc) is also stored in the PV, so when the pod is replaced, the new one keeps the same identity.
+
+The pods are numerated in ascending order: 0 (master), 1, 2, 3... (slaves). Deletion and addition of pods keeps the continued ordering. A DNS name is also assigned to each pod (so identity is kept even if the IP is changed).
