@@ -23,7 +23,7 @@ Some aspects about external objects:
 The keyword `static` has two meanings depending if an object is:
 
 - External object: Limits the object's scope to that source file (similar to private objects on OOP). Is is a matter of **visibility**
-- Internal object: Makes the variable (and its value) persist between function calls, while maintaining the limited scope. It is a matter of **duration**.
+- Internal object: Makes the variable (and its value) persist between function calls, while maintaining the limited scope. It is a matter of **duration**. This does not have a lot of uses and it is sometimes discouraged. An example usage is in page 113.
 
 All static and external variables are assigned to `0`.
 
@@ -61,7 +61,7 @@ else	/* WRONG */
 
 ## C Preprocessor
 
-Useful use of conditionals on the preprocessor (including the appropiate header file for the OS based on some value):
+Useful usage of conditionals on the preprocessor (including the appropiate header file for the OS based on some value):
 
 ```c
 #if SYSTEM == SYSV
@@ -76,7 +76,31 @@ Useful use of conditionals on the preprocessor (including the appropiate header 
 
 We can check for defined macros with `ifdef` and `ifndef`.
 
+## Pointers
+
+Pointers can be compared and substracted.
+
+Pointers can be dereferenced, but arrays cannot.
+
+Note the difference between:
+
+- `(*x)[13]`: Pointer to an array of size 13
+- `*x[13]`: An array of 13 pointers
+
+On page 117 there is a code snippet for reading arguments flags from `argv`.
+
+To archieve a more general code, pointers can be casted to `(\*void)` and back without lose of information. Note that on `(*void)` we can only do pointer comparison, no pointer arithmetic as we do not know the size of the type.
+
+Note the difference between:
+
+- `int *f()`: Function returning a pointer to an integer
+. `int (*f)()`: Pointer to a function returning an integer
+
+> The subsection 5.12 is pure gold. It build a program that parses a complex declaration with pointers and explains its meaning
+
 #### Libc Header files
 
 - `limits.h`: Limits for each type
 - `ctype.h`: Char manipulation (upper, lower, etc)
+
+***
