@@ -1,4 +1,4 @@
-# learning-notes
+# Learning Notes
 
 My notes on some interesting books, talks and courses.
 
