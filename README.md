@@ -12,6 +12,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Engineering a Compiler - Cooper & Torczon](/books/engineering-a-compiler.md)
 - [The Cathedral and The Bazaar - Eric S. Raymond](/books/the-cathedral-and-the-bazaar.md)
 - [The Rust Programming Language - Steve Klabnik & Carol Nichols](/books/the-rust-programming-language.md)
+- [Learn You Some Erlang for Great Good! - Fred Hébert](/books/learn-you-some-erlang.md)
 
 ## Talks
 
@@ -30,7 +31,6 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [Advent Of Cyber 2022 - TryHackMe](/courses/advent-of-cyber-2022.md)
 - [Kubernetes Tutorial for Beginners - Techworld with Nana](/courses/kubernetes-tutorial.md)
 
-
 ## More Interesting Resources
 
 Here there is some more interesting content, but for which I've taken no notes (for now :P).
@@ -44,6 +44,7 @@ Here there is some more interesting content, but for which I've taken no notes (
 - [I'll Let Myself In: Tactics of Physical Pen Testers - Deviant Ollam](https://youtu.be/rnmcRTnTNC8)
 - [Why Isn't Functional Programming the Norm? – Richard Feldman](https://youtu.be/QyJZzq0v7Z4)
 - [Performance Matters - Emery Berger](https://youtu.be/r-TLSBdHe1A)
+- [Andreas Kling's Keynote Presentation on the Ladybird Browser](https://www.youtube.com/watch?v=9YM7pDMLvr4)
 
 ### Courses
 
