@@ -20,6 +20,7 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 - [The Tragedy of Systemd - Benno Rice](/talks/tragedy-of-systemd.md)
 - [Why would a Python programmer learn Rust when there are no jobs in it](talks/why-python-programmer-learn-rust.md)
 - [Why Can't We Make Simple Software? - Peter van Hardenberg](talks/why-cant-we-make-simple-software.md)
+- [The Soul of Erlang and Elixir - Sasa Juric](talks/soul-of-erlang-and-elixir.md)
 
 ## Courses
 
