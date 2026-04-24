@@ -6,31 +6,31 @@ Some of them are right now in Catalan, I will be gradually translating them to E
 
 ## Books
 
-- [Modern Operating Systems - Andrew Tanenbaum](/books/modern-operating-systems.md)
-- [Clean Architecture - Robert C. Martin](/books/clean-architecture.md)
-- [Computer Networking: A Top-Down Approach - Kurose & Ross](/books/computer-networking.md)
-- [Engineering a Compiler - Cooper & Torczon](/books/engineering-a-compiler.md)
-- [The Cathedral and The Bazaar - Eric S. Raymond](/books/the-cathedral-and-the-bazaar.md)
-- [The Rust Programming Language - Steve Klabnik & Carol Nichols](/books/the-rust-programming-language.md)
-- [Learn You Some Erlang for Great Good! - Fred Hébert](/books/learn-you-some-erlang.md)
+- [Modern Operating Systems - Andrew Tanenbaum](books/modern-operating-systems.md)
+- [Clean Architecture - Robert C. Martin](books/clean-architecture.md)
+- [Computer Networking: A Top-Down Approach - Kurose & Ross](books/computer-networking.md)
+- [Engineering a Compiler - Cooper & Torczon](books/engineering-a-compiler.md)
+- [The Cathedral and The Bazaar - Eric S. Raymond](books/the-cathedral-and-the-bazaar.md)
+- [The Rust Programming Language - Steve Klabnik & Carol Nichols](books/the-rust-programming-language.md)
+- [Learn You Some Erlang for Great Good! - Fred Hébert](books/learn-you-some-erlang.md)
 
 ## Talks
 
-- [Practical Guide to Hacking RFID/NFC - Slawomir Jasek](/talks/practical-guide-rfid-nfc.md)
-- [The Tragedy of Systemd - Benno Rice](/talks/tragedy-of-systemd.md)
+- [Practical Guide to Hacking RFID/NFC - Slawomir Jasek](talks/practical-guide-rfid-nfc.md)
+- [The Tragedy of Systemd - Benno Rice](talks/tragedy-of-systemd.md)
 - [Why would a Python programmer learn Rust when there are no jobs in it](talks/why-python-programmer-learn-rust.md)
 - [Why Can't We Make Simple Software? - Peter van Hardenberg](talks/why-cant-we-make-simple-software.md)
 - [The Soul of Erlang and Elixir - Sasa Juric](talks/soul-of-erlang-and-elixir.md)
 
 ## Courses
 
-- [Django Crash Course - Academind](/courses/django-crash-course.md)
-- [Linux Systemd - TutoriaLinux](/courses/linux-systemd.md)
-- [How to HomeLab - Learn Linux TV](/courses/how-to-homelab.md)
-- [Ansible 101 - Jeff Geerling](/courses/ansible-101.md)
-- [Docker Tutorial for Beginners - Techworld with Nana](/courses/docker-tutorial.md)
-- [Advent Of Cyber 2022 - TryHackMe](/courses/advent-of-cyber-2022.md)
-- [Kubernetes Tutorial for Beginners - Techworld with Nana](/courses/kubernetes-tutorial.md)
+- [Django Crash Course - Academind](courses/django-crash-course.md)
+- [Linux Systemd - TutoriaLinux](courses/linux-systemd.md)
+- [How to HomeLab - Learn Linux TV](courses/how-to-homelab.md)
+- [Ansible 101 - Jeff Geerling](courses/ansible-101.md)
+- [Docker Tutorial for Beginners - Techworld with Nana](courses/docker-tutorial.md)
+- [Advent Of Cyber 2022 - TryHackMe](courses/advent-of-cyber-2022.md)
+- [Kubernetes Tutorial for Beginners - Techworld with Nana](courses/kubernetes-tutorial.md)
 
 ## More Interesting Resources
 
