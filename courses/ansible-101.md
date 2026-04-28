@@ -1,3 +1,8 @@
+<!-- FRONT
+title = "Ansible 101"
+description = "Jeff Geerling"
+-->
+
 [Ansible 101 - Jeff Geerling](https://youtube.com/playlist?list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN)
 
 # Ansible 101
@@ -5,6 +10,7 @@
 ## Introduction to Ansible
 
 Some important links:
+
 - [Examples from the book](https://github.com/geerlingguy/ansible-for-devops)
 - [Ansible Documentation](https://docs.ansible.com)
 
@@ -31,28 +37,27 @@ Recommended procedure for deploying a service:
 3. Delete everything and use the automation to rebuild it
 4. Check everything still works
 
-Vagrant allows to configure a *box* (i.e. VM) with `vagrant init <box_path>`. Boxes can be found [here](https://app.vagrantup.com/boxes/search). The corresponding box is downloaded and VM launched with `vagrant up`
+Vagrant allows to configure a _box_ (i.e. VM) with `vagrant init <box_path>`. Boxes can be found [here](https://app.vagrantup.com/boxes/search). The corresponding box is downloaded and VM launched with `vagrant up`
 
 Some other commands: ssh, halt, destroy...
 
 ### First Ansible Playbooks
 
-Ansible playbooks can be configured on Vagrant as a *provision*, with the code (for the Vagrantfile and the example playbook) available in the examples (ch2). Then `vagrant provision` can be used to run the playbooks
+Ansible playbooks can be configured on Vagrant as a _provision_, with the code (for the Vagrantfile and the example playbook) available in the examples (ch2). Then `vagrant provision` can be used to run the playbooks
 
 ### Idempotence
 
-In Ansible playbooks, we define the state that we want our machines to be. Due to Ansible **idempotency**, it will do nothing if already on that state (*ok*) or it will apply changes so it comes to that state (*changed*).
+In Ansible playbooks, we define the state that we want our machines to be. Due to Ansible **idempotency**, it will do nothing if already on that state (_ok_) or it will apply changes so it comes to that state (_changed_).
 
-This behavior can be used to *check* if the state of a machine has been modified, by for example running playbooks periodically and triggering an event on a not *ok*.
+This behavior can be used to _check_ if the state of a machine has been modified, by for example running playbooks periodically and triggering an event on a not _ok_.
 
 For this reason it is always recomended to use built-in modules, as they guarantee idempotency. Alternatively, scripts should be written idempotent.
-
 
 ## Ad-hoc tasks and Inventory
 
 ### Intro to ad-hoc commands
 
-Normally we use Ansible through Playbooks, as those commands can be easily reproducible. For debugging or monitoring purposes, however, *ad-hoc* commands are very useful as they are faster to write.
+Normally we use Ansible through Playbooks, as those commands can be easily reproducible. For debugging or monitoring purposes, however, _ad-hoc_ commands are very useful as they are faster to write.
 
 ### Multi-VM Vagrant configuration
 
@@ -61,10 +66,12 @@ With Vagrant one can start multiple VMs in a single Vagrant file. Also available
 ### Multi-host inventory
 
 There are two sintaxes that can be used, INI and YAML. In INI:
+
 - Comments with #
 - Groups in brackets (for example `[db]`)
 
 We can also make groups of groups with `:children`. Example:
+
 ```
 [group1]
 host1
@@ -81,6 +88,7 @@ group2
 ```
 
 We can also give variables for groups with `:vars`. For example:
+
 ```
 [multigroup:vars]
 ansible_ssh_user=myuser
@@ -90,7 +98,7 @@ ansible_ssh_user=myuser
 
 Ansible (by default) runs 5 commands in parallel. Option `-f` can change the number of forks, so 1 would make it sequential.
 
-Ad-hoc commands always report *change*, as without a module, Ansible, is unable to figure out if something has really changed or not.
+Ad-hoc commands always report _change_, as without a module, Ansible, is unable to figure out if something has really changed or not.
 
 ### Setup module
 
@@ -108,7 +116,6 @@ Ansible documentation in the [website](docs.ansible,com) or terminal using `ansi
 
 A single host can be targeted (or ignore) with `--limit` argument followed by a regexp. Not necessary until debugging with quite advanced stuff.
 
-
 ## Introduction to Playbooks
 
 > As the livestreams don't perfectly match with the chapters on the books, the beggining of this episode continues with ad-hoc commands, that would fit better on the last episode.
@@ -116,10 +123,11 @@ A single host can be targeted (or ignore) with `--limit` argument followed by a 
 ### Multi-host ad-hoc orchestration
 
 To let an ad-hoc command run in the background, there are two interesting arguments:
+
 - `-B <seconds>`: Lets the command run for `<seconds>` seconds. If not finished after those, the job is killed.
 - `-P <seconds>`: It will poll every `<seconds>` seconds to see if the job is finished. If 0, then no polling is done.
 
-On `-P`, ansible returns a *job_id*, that can be used to check the status of that job with the `async_status` module.
+On `-P`, ansible returns a _job_id_, that can be used to check the status of that job with the `async_status` module.
 
 ### Using different modules ad-hoc
 
@@ -133,7 +141,7 @@ As always, playbooks are recommended for most of these cases.
 
 General pattern for naming playbooks:
 
-- *main.yml*: Playbook that automates the whole maintenance of the host
+- _main.yml_: Playbook that automates the whole maintenance of the host
 - The rest of the names describe the general purpose
 
 ### Making playbooks more Ansible-ish
@@ -159,7 +167,7 @@ The `copy` module for copying files with given permissions, etc. It can do multi
 
 Then Ansible runs the task for each of the values of `with_items`, as in a loop. The syntax `{{ item['src'] }}` can also be used, an safer when the the property has special characters.
 
-For boolean values, both of the pairs *true*/*false* or *yes*/*no* can be used.
+For boolean values, both of the pairs _true_/_false_ or _yes_/_no_ can be used.
 
 For running playbooks, the `ansible-playbook` command is used.
 
@@ -169,7 +177,6 @@ As in ad-hoc, the `--limit` argument can be used to limit the targeted hosts for
 
 The `ansible-inventory` command gives information about the hosts managed on the inventory file.
 
-
 ## A first real-world playbook
 
 ### Our first real-world playbook
@@ -178,7 +185,7 @@ We can specify variables to be considered before running a play with the followi
 
 ```yaml
 vars_files:
-- vars.yaml
+  - vars.yaml
 ```
 
 For styling purposes, tasks on a playbook can be divided into `pre_tasks`, `tasks` and `post_tasks`
@@ -197,7 +204,7 @@ pre_tasks:
 
 Sometimes is interesting to trigger a task only when another one applies changes. This is possible with Ansible, and the triggered task is called **handler**.
 
-The triggering task has an attribute `notify: <name of the handler>`. Then the *handlers* section is added like so:
+The triggering task has an attribute `notify: <name of the handler>`. Then the _handlers_ section is added like so:
 
 ```yaml
 handlers:
@@ -212,10 +219,11 @@ An example of this could be a service, as changing the configuration (trigger) o
 When downloading files, it is better to specify the whole path to guarantee idempotency.
 
 Some more interesting modules:
+
 - `get_url`: Downloads file from url, similar to wget command.
 - `unarchive`: Equivalent to unzip, untar, etc commands.
 
-`creates` is a common parameter to guarantee idempotency. If a certain thing exists (for example a file), there is no need to apply changes. In that case, it sometimes reports *skipped* instead of *ok*, depending on the module.
+`creates` is a common parameter to guarantee idempotency. If a certain thing exists (for example a file), there is no need to apply changes. In that case, it sometimes reports _skipped_ instead of _ok_, depending on the module.
 
 When working with long attributes, two interesting operators can be used for legibility purposes:
 
@@ -225,7 +233,6 @@ When working with long attributes, two interesting operators can be used for leg
 ### Checking playbook syntax
 
 Syntax can be checked without running the playbook with the `--syntax-check` argument.
-
 
 ## Playbook handlers, environment vars, and variables
 
@@ -256,52 +263,51 @@ For changing an environment variables (or adding a new one), the `lineinfile` mo
 - name: Adding the ENV_VAR to remote user's shell
   lineinfile:
     dest: "~/.bash_profile"
-    regexp: '^ENV_VAR='
-    line: 'ENV_VAR = value'
+    regexp: "^ENV_VAR="
+    line: "ENV_VAR = value"
 ```
 
 An environment variable can be used on the playbook with the `register` attribute.
 
 ```yaml
 - name: Get value of an environment variable.
-  shell: 'source ~/.bash_profile && echo $ENV_VAR'
+  shell: "source ~/.bash_profile && echo $ENV_VAR"
   register: foo
 ```
 
-In the example, `foo` now contains a dictionary with *stdin*, *stdout*, and *stderr*. The `debug` mode can be used to echo the value.
+In the example, `foo` now contains a dictionary with _stdin_, _stdout_, and _stderr_. The `debug` mode can be used to echo the value.
 
 ```yaml
 - debug: "The value of the variable is {{ foo.stdout }}."
 ```
 
-A variable for a task or a whole play can be declared with the `environment` attribute. 
+A variable for a task or a whole play can be declared with the `environment` attribute.
 
 The second option is to declare them at play level with `vars`, and later on injected into the necessary tasks with `environment`.
 
 ### Dynamic variable files for multi-OS
 
-Variables can also be imported on a playbook from a *variables file* with `vars_file`. The *variables file* also follows a YAML structure.
+Variables can also be imported on a playbook from a _variables file_ with `vars_file`. The _variables file_ also follows a YAML structure.
 
 This allows, for example, to have installation playbooks compatible with different package managers, as a different name for the service can be given for each one. To achive this, one could do:
 
 ```yaml
 pre_tasks:
   - name: Lead variable files.
-    include_vars: {{ item }}
+    include_vars: { { item } }
     with_first_found:
       - "vars/{{ ansible_os_family }}.yml"
       - "vars/default.yml"
 ```
 
 - The `with_first_found` item runs a loop looking for file, and stores in `item` the first file that can be read.
-- The `ansible_os_family` is part of the *facts* Ansible can gather about a host. The rest can be seen with the module `setup`.
+- The `ansible_os_family` is part of the _facts_ Ansible can gather about a host. The rest can be seen with the module `setup`.
 
 ### Ansible facts and setup modules
 
-The default *fact* gathering on a play can be disabled with the attribute `gather_facts`
+The default _fact_ gathering on a play can be disabled with the attribute `gather_facts`
 
-A *facts script* can be used to only register certain facts.
-
+A _facts script_ can be used to only register certain facts.
 
 ## Ansible Vault and Roles
 
@@ -313,7 +319,7 @@ For running playbooks that use that file, the `--ask-vault-pass` argument can be
 
 ### Decrypt, encrypt, edit, rekey, etc.
 
-A file can also be *decrypted* or *edited*. The password can be changed with *rekey*
+A file can also be _decrypted_ or _edited_. The password can be changed with _rekey_
 
 For best practices, it is better to keep the encypted and non-encrypted variables separated.
 
@@ -354,19 +360,18 @@ Playbooks can be included with `import_playbook`.
 
 ### Roles
 
-A *role* is a set of related tasks that can be called from one or multiple playbooks with extra tools that make it easier than importing a playbook.
+A _role_ is a set of related tasks that can be called from one or multiple playbooks with extra tools that make it easier than importing a playbook.
 
 They are stored in the `roles/<role_name>` folder. They are made of two directories:
 
-- *meta*: There must be *main.yml*. Some more advanced stuff like dependencies.
-- *tasks*: Where the tasks are stored. There must be *main.yml*.
+- _meta_: There must be _main.yml_. Some more advanced stuff like dependencies.
+- _tasks_: Where the tasks are stored. There must be _main.yml_.
 
 Roles are by default stored on some path in the home directory
 
 ### Options for including roles
 
 Roles can be specified in the `roles` section of the playbook, and they will be run at the start. If it is desired to call them at a certain moment, it is possible with `include_role`.
-
 
 ### Real-world flexible role usage
 
@@ -375,4 +380,3 @@ Due to its flexibility, there are roles available for installing and deploying s
 To create an empty role, `ansible-galaxy role init <role_name>`.
 
 Due to the great amout of roles available, most times setting a service consists on choosing roles and writing few tasks to add some less fundamental functionality.
-

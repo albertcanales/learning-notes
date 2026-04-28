@@ -1,3 +1,8 @@
+<!-- FRONT
+title = "The Tragedy of Systemd"
+description = "Benno Rice"
+-->
+
 [The Tragedy of Systemd](https://youtu.be/o_AIw9bGogo)
 
 Xerrada divulgativa/històrica per explicar el backgound de Systemd. No és molt potent a nivell conceptual però he pres quatre apunts dels punts claus en la història de systemd igualment.

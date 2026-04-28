@@ -1,4 +1,7 @@
-Modern Operating Systems, 3rd Edition
+<!-- FRONT
+title = "Modern Operating Systems (3rd Ed.)"
+description = "Andrew Tanenbaum & Herbert Bos"
+-->
 
 # Introduction
 
@@ -254,7 +257,6 @@ Com funcionen els fitxers i directoris a UNIX:
 - Com un VM però donant accés directe als recursos particionant-los
 - Es perd el dinamisme però es guanya eficiència i simplicitat.
 
-
 # Processes and Threads
 
 ## Processes
@@ -276,8 +278,7 @@ Important difference between program and process:
 
 - **Daemon**: A process running in the background
 
-The *fork* syscall creates is an exact (except for minor details) copy of the parent. It can later become another program by using the *exec* syscall.
-
+The _fork_ syscall creates is an exact (except for minor details) copy of the parent. It can later become another program by using the _exec_ syscall.
 
 ### Process Termination
 
@@ -288,25 +289,25 @@ Different types of termination:
 - Fatal error
 - Killed
 
-The first two are voluntary, and correspond to the *exit* syscall. The last two are not voluntary, and are produced by a signal sent from the OS or another program, respectively.
+The first two are voluntary, and correspond to the _exit_ syscall. The last two are not voluntary, and are produced by a signal sent from the OS or another program, respectively.
 
 ### Process Hierarchies
 
 - **Process group**: Set of processes formed by a process and all of its descendants.
 
-The *kill* syscall allows to send signals to an individual process or to its process group.
+The _kill_ syscall allows to send signals to an individual process or to its process group.
 
-On startup, the *init* process (PID 1) has as many children as terminals. Then login is performed in one of them, a shell is started (and maybe afterwords an X session, etc).
+On startup, the _init_ process (PID 1) has as many children as terminals. Then login is performed in one of them, a shell is started (and maybe afterwords an X session, etc).
 
 ### Process States
 
 > Concepts from this section were already familiar from the OS subject
 
-The *block* state allows us to think about syscalls as nothing more that other processes that are normally blocked and, when signaled, they perform a certain task and, when finished, the user process returns to ready. This is not real (as syscalls are called by interruptions, not signals), but is an abstraction that resembles the Microkernel OSs.
+The _block_ state allows us to think about syscalls as nothing more that other processes that are normally blocked and, when signaled, they perform a certain task and, when finished, the user process returns to ready. This is not real (as syscalls are called by interruptions, not signals), but is an abstraction that resembles the Microkernel OSs.
 
 ### Implementation of Processes
 
-The OS keeps a *Process Table* containing all the control information about the running processes. The following figure shows the contents of each entry of this table:
+The OS keeps a _Process Table_ containing all the control information about the running processes. The following figure shows the contents of each entry of this table:
 
 ![mos-pcb.png](img/mos-pcb.png)
 
@@ -316,32 +317,31 @@ Multiprogramming allows for a better use of CPU, as when processes are waiting f
 
 As more processes are involved (and less dependant of I/O), more work will be outputed by the CPU. This phenomemon causes, for example, that a faster memory may also increase the CPU effective speed, as more processes can be running instead of waiting for I/O.
 
-
 ## Threads
 
 ### Thread Usage
 
 Threads can be thought as (mini) processes, running parallel and **sharing adress space**. Moreover, they are faster to be created than processes.
 
-For example, workers on a webserver. They are threads that go to *ready* whenever the dispatcher wakes them up (because a petition has arrived).
+For example, workers on a webserver. They are threads that go to _ready_ whenever the dispatcher wakes them up (because a petition has arrived).
 
 In short, they acomplish two things at the same time that, when, if only using processes, we would have to focus on one and ditch the other.
 
-- *Blocking*: Simplifies processes code as reduces complexity. Present on single threaded processes
-- *Parallelism*: Improves performance as work can be done while waiting for a blocked call. Present in finite-state processes
+- _Blocking_: Simplifies processes code as reduces complexity. Present on single threaded processes
+- _Parallelism_: Improves performance as work can be done while waiting for a blocked call. Present in finite-state processes
 
 In general, programming with threads is more difficult because they break with some of the OS paradigms as they try to acomplish both.
 
-For example, for programs with a lot of data, three threads can be used: *input*, *processing* and *output*.
+For example, for programs with a lot of data, three threads can be used: _input_, _processing_ and _output_.
 
 ### The Classical Thread Model
 
 We can also think as processes as a group of threads. This grouping has two objectives.
 
-- *Resource gruping*: They can share text, data...
-- *Execution*: Each thread has its own PC, registers, stack...
+- _Resource gruping_: They can share text, data...
+- _Execution_: Each thread has its own PC, registers, stack...
 
-There is no protection between threads, but it is not really necessary as they are created by the same user (because they are the same process), and thus should not be hostile to one another. 
+There is no protection between threads, but it is not really necessary as they are created by the same user (because they are the same process), and thus should not be hostile to one another.
 
 ![mos-thread-items](img/mos-thread-items.png)
 
@@ -370,22 +370,22 @@ Implementing threads in user space has the following pros:
 
 But also has the following cons:
 
-- **No blocking syscalls and page faults**. A workaround to this problem is to use the `select` syscall, that indicates if a syscall will be blocking or not (this is called a *wrapper* or *jacket*). Then the following logic is applied:
-    - If it was blocking, move to another thread
-    - If it was not blocking, continue with the current one
+- **No blocking syscalls and page faults**. A workaround to this problem is to use the `select` syscall, that indicates if a syscall will be blocking or not (this is called a _wrapper_ or _jacket_). Then the following logic is applied:
+  - If it was blocking, move to another thread
+  - If it was not blocking, continue with the current one
 - **A thread change cannot be forced**. It is the running thread that has to give up the CPU. There could be an interrupt for changing threads (simulating the context changing of the OS) indise the process, but it would add up too much overhead
 
 ### Implementing Threads in the Kernel
 
 In short, having threads managed by kernel space inverts the pros and cons of doing so in user space.
 
-- **Slower**, as it requires a syscall for changing threads. To lighten this effect, *thread recycling* can be used
+- **Slower**, as it requires a syscall for changing threads. To lighten this effect, _thread recycling_ can be used
 - It solves the problems on blocking system calls and page faults.
 - The treatment for signals has to be redefined. Which thread attends the signal?
 
 ### Hybrid implementations
 
-The most used hybrid to maximise the pros and minimise the cons of both systems consists on *kernel threads*, each one of them multiplexed into a group of *user threads*.
+The most used hybrid to maximise the pros and minimise the cons of both systems consists on _kernel threads_, each one of them multiplexed into a group of _user threads_.
 
 ### Scheduler Activations
 
@@ -400,7 +400,7 @@ Another optimisation for threads, this time focused in distributed systems. In t
 Making a multithreaded program introduces some new problems and their corresponding solution:
 
 - Problem: Shared global variables like `errno` can be undesirably rewritten between processes
-- Solution: Not sharing global variables, instead using *private global variables* (there are syscalls for managing them)
+- Solution: Not sharing global variables, instead using _private global variables_ (there are syscalls for managing them)
 
 - Problem: Overlaping syscalls (for example: t1 prepares values for syscall; thread change; t2 prepares values for syscall; t2 traps)
 - Solution: Mask indicating if a system library is in use, sacrificing some paralellism.
@@ -411,7 +411,6 @@ Making a multithreaded program introduces some new problems and their correspond
 - Problem: How the kernel manages stack growth on stack fault?
 - Solution: Later discussed
 
-
 ## Interprocess Communication
 
 - **IPC**: InterProcess Communication.
@@ -420,11 +419,11 @@ Some principles can also be applied to threads.
 
 ### Race conditions
 
-A *race condition* is when two processes collide with each other in some way, such that output differs depending on the running order. Normally very difficult to debug.
+A _race condition_ is when two processes collide with each other in some way, such that output differs depending on the running order. Normally very difficult to debug.
 
 ### Critical regions
 
-Race condition happens due a use by both processes of some sort of resource. The resources used by a process are called *critical region*. To avoid the race condition, one can do *mutual exclusion*, that is, that the critical region of both processes cannot overlap.
+Race condition happens due a use by both processes of some sort of resource. The resources used by a process are called _critical region_. To avoid the race condition, one can do _mutual exclusion_, that is, that the critical region of both processes cannot overlap.
 
 The objective is:
 
@@ -452,7 +451,6 @@ Like busy waiting but taking turns. This solves mutual exclusion but also blocks
 What is used nowadays.
 
 > My book here is missing a chunk of pages, until section 2.5. Due to the discontinuity, I could not follow the rest of the chapter.
-
 
 # Memory Managment
 

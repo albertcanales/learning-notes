@@ -1,3 +1,8 @@
+<!-- FRONT
+title = "Docker Tutorial for Beginners"
+description = "Techworld with Nana"
+-->
+
 [Docker Tutorial for Beginners - Techworld with Nana](https://youtu.be/3c-iBn73dDE)
 
 ## What is Docker?
@@ -6,7 +11,7 @@
 
 ## What is a Container?
 
-A container is made of layers of images. 
+A container is made of layers of images.
 
 Dividing a container into layers makes pulling diferent versions of the same container much faster, for example.
 
@@ -18,7 +23,7 @@ A hosts consists of three layers:
 
 2. Applications
 1. Kernel
-0. Hardware
+1. Hardware
 
 While VMs virtualise layers 1 and 2, Docker only virtualises 2. This results in better size, speed, but sacrifices compatibility.
 
@@ -39,7 +44,7 @@ Docker commands for debugging:
 
 ## Demo Project Overview
 
-Interesting example of CI, from development to deployment with various technologies. 
+Interesting example of CI, from development to deployment with various technologies.
 
 ## Developing with Containers
 
@@ -47,7 +52,7 @@ Interesting example of CI, from development to deployment with various technolog
 
 ### Docker Networks
 
-By grouping containers with a network, data can be transfered between only with their names. 
+By grouping containers with a network, data can be transfered between only with their names.
 
 The `network` command is used to create, list... networks. A container can belong to a network by specifying `--net` on the `run` command.
 
@@ -57,7 +62,7 @@ Uses YAML to structure the run commands on a file. Docs [here](https://docs.dock
 
 - Automatically creates a common network for all the services specified in a file.
 
-Usage: 
+Usage:
 
 - Start containers (and crates network): `docker-compose -f <file> up`.
 - Stops containers (and removes network): `docker-compose -f <file> down`.
@@ -81,7 +86,7 @@ COPY <host_path> <container_path>
 CMD <entrypoint_command>
 ```
 
-Images are based on more basic images through Dockerfiles. This is called *image layers*
+Images are based on more basic images through Dockerfiles. This is called _image layers_
 
 An image is created from a Dockerfile with the `build` command. `-t` specifies the tag.
 
@@ -94,6 +99,7 @@ An image is created from a Dockerfile with the `build` command. `-t` specifies t
 Docker Volumes compensate the lack of persistency of the Virtual File System of the Container. A Volume is nothing more than a host file (normally a directory) mounted on the Virtual File System.
 
 There are three type of volumes:
+
 - Host volume: Host and container paths are specified.
 - Anonymous volume: Container path is specified but the host one is automatically generated.
 - **Named volume**: Same as anonymous but a name is given to the volume.
@@ -101,5 +107,3 @@ There are three type of volumes:
 Volumes can be defined also in Docker Compose.
 
 Anonymous and named volumes are stored in `/var/lib/docker/volumes`.
-
-

@@ -1,4 +1,9 @@
-[The Soul of Erlang and Elixir - Sasa Juric - GOTO 2019](https://www.youtube.com/watch?v=JvBT4XBdoUE)
+<!-- FRONT
+title = "The Soul of Erlang and Elixir"
+description = "Saša Jurić"
+-->
+
+[The Soul of Erlang and Elixir - Saša Jurić - GOTO 2019](https://www.youtube.com/watch?v=JvBT4XBdoUE)
 
 BEAM: Runtime Layer
 Languages can be seen as interfaces to BEAM

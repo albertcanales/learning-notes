@@ -1,4 +1,7 @@
-The Rust Programming Language, 2nd Edition
+<!-- FRONT
+title = "The Rust Programming Language (2nd Ed.)"
+description = "Steve Klabnik, Carol Nichols, & Chris Krycho"
+-->
 
 Latest release available here: <https://doc.rust-lang.org/stable/book/>.
 
@@ -46,7 +49,7 @@ const PI: f64 = 3.141592;
 
 ### Shadowing
 
-*Shadowing* is the effect of giving a variable the same same as a prevoius one. The effect will be that the new one will replace the old.
+_Shadowing_ is the effect of giving a variable the same same as a prevoius one. The effect will be that the new one will replace the old.
 
 It differs from using `mut` because, at is is creating a new variable, it also allows changing the type and takes scopes into account. For the former, consider the examples:
 
@@ -76,7 +79,7 @@ println!("The value of x is: {x}");
 
 The `arch` type's size depends on the architecture of the machine running the program.
 
-For readability, the *_* sign can be used, for example `1_000_000`, which is the same as `1000000`.
+For readability, the \_\_\_ sign can be used, for example `1_000_000`, which is the same as `1000000`.
 
 Some methods are provided to avoid integer overflow [here](https://doc.rust-lang.org/stable/book/ch03-02-data-types.html#integer-overflow).
 
@@ -180,7 +183,7 @@ fn main() {
 }
 ```
 
-The keywords `break` and `continue` apply to the innermost loop. They can refer to previous ones by using *loop labels*. For example:
+The keywords `break` and `continue` apply to the innermost loop. They can refer to previous ones by using _loop labels_. For example:
 
 ```rust
 fn main() {
@@ -199,3 +202,85 @@ fn main() {
 #### While and For
 
 Really similar to other languages.
+
+# Understanding Ownership
+
+## What is Ownership?
+
+Rust's ownership tackle's this basic C problem:
+
+```c
+void fun(int* p) {
+    ...
+}
+
+int main() {
+    int* p = malloc(...);
+
+    f(p)
+    // Now, who is responsible of freeing p?
+}
+```
+
+To clarify, we must free the memory when unused to avoid memory leaks. On the other hand, freeing the memory twice or prematurely will result in an unrecoverable error.
+
+To solve this, some languages make use of a garbage collector, which can greatly damage performance. Rust uses the concept of _ownership_. That means:
+
+- Each value in Rust has an owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
+We have to note that data types with known size (at compile time) can be stored in the stack, and thus do not need the concept of _ownership_.
+
+Based on these rules, there is no _shallow copy_ (i.e. ahving two pointer variables pointing at a same value). Instead we have a _move_. Deep copying is still allowed.
+
+### Copy and Drop traits
+
+How does Rust know that a data type have fixed size (and thus can be stored in the stack)? They implement the _Copy_ trait. This means that on variables will not be moved, but deep copied.
+
+To indicate that moving must be used, we implement the _Drop_ trait. A data type cannot implement _Copy_ if any of its parts implements _Drop_.
+
+For example the tuple `(i32, i32)` implements _Copy_, but `(i32, String)` does not.
+
+### Ownership, functions and return values
+
+Passing a variable through a function's parameters gives the called function ownership over the variable. Similarly, returning a value gives the caller ownership over that value.
+
+Suppose this simple case:
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = func(s1);
+    // Here we would like ownership over s1 and s2
+    // But we only have ownership over s2
+}
+
+fn func(s: String) {
+    String::from("bye");
+}
+```
+
+To solve this one might return a tuple with the parameter. This may work but it is really inconvinient. Here we introduce the following chapter.
+
+## References and Borrowing
+
+A reference allows to pass a value without giving it's ownership. It differs from a pointer in the sense that it is guarantieed to point to a valid value and known type.
+
+_Borrowing_ is the act of creating a reference.
+
+You cannot modify a reference unless you explicitly make it mutable.
+
+It is also forbidden to have more than one mutable reference to the same value in use. This prevents data races at compile time. Having a mutable reference among some immutable is also forbidden.
+
+Rust can also warn and prevent dangling references such as:
+
+```rust
+fn dangle() -> &String { // dangle returns a reference to a String
+
+    let s = String::from("hello"); // s is a new String
+
+    &s // we return a reference to the String, s
+} // Here, s goes out of scope, and is dropped. Its memory goes away.
+  // Danger!
+```

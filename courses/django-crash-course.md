@@ -1,40 +1,49 @@
+<!-- FRONT
+title = "Python Django Course for Beginners 2021"
+description = "Academind"
+-->
+
 [Python Django Course for Beginners 2021 - Learn Django from Scratch in this 100% Free & Tutorial!](https://www.youtube.com/watch?v=t7DrJqcUviA&t=2081s)
 
-Una WEBPAGE és un conjunt de APPS (similars a paquets).
+# Django Crash Course
 
-Iniciar un projecte:
+A webpage is a set of apps (similarly to modules).
+
+To start a project:
 `python manage.py startapp APPNAME`
 
-Obrir el servidor (a localhost:8000 per defecte):
+To run the webpage server (localhost:8000 by default):
 `python manage.py runserver`
 
-# Fitxers importants
+## Important files
 
-## `views.py`
-Una **view** és una funció que té retorna un HTML com a request de una petició de HTTP. Tenen `request` com a paràmetre, com una espècie de *context* gestionat per Django.
+### `views.py`
 
-## `urls.py` (de fora de la APP)
-Conté una variable `urlpatters` que indica quina view li correspon a cada path.
-Es poden fer paths dinàmics amb slugs i coses d'aquetes, està al codi.
+A **view** is a function that returns the HTML response of HTTP request. The `request` is given as a parameter, with the necessary context managed by Django.
 
-## `settings.py`
-Com una espècie de manifest, bastant autoexplicatiu. S'han d'afegir les apps perquè Django les consideri, a l'estil de les Activities en Android Java
+### `urls.py` (outside of an app)
 
+Contains a variable `urlpatters` that specifies which view corresponds to each path. Dynamic paths can be acomplished by using slugs, for example. There are examples in the code.
 
-# Templating
+### `settings.py`
+
+A kind of manifest with quite self-explanatory context. Apps need to be added into this file to be considered by Django, similarly as Activities in Android Java
+
+## Templating
 
 Permet posar contingut dinàmic als HTML. Hi ha de dos tipus:
 
 Template **interpolation**: Sintaxi `{{ VARIABLE }}`. Incrusta el contingut de variable. OJO!: ~~`{{ dict['name'] }}`~~ -> `{{ dict.name }}`. A més, per cridar mètodes s'ometen els parèntesis
 
 La resta de templates: Sintaxi `{% COMMAND %}`. On command segueix una espècie de pseudollenguatge. Algunes comandes:
+
 - `if, for, endif, endfor...` acompanyats de sintaxi de Python de tota la vida
 - `static`: Per posar paths a fitxers (tipus CSS). S'ha de fer així pq Django mou els paths en el HTML final
 - `block TITLE`, `endblock`: Entre ells es posa el valor per defecte. Un fill que inclogui les mateixes templates substituirà el contingut de dins del pare
 - `extends PARE`: Per extendre del pare, PARE segueix la sintaxi que tindria si estigués amb un static
 - `include PATH`: Inclou a dins el HTML dins de path. útil per fer elements modulars
 
-# Models
+## Models
 
 Els models són les classes a les que ens interessa tenir una taula de la DB associada.
 
@@ -48,7 +57,7 @@ Crea el codi que genera les taules SQL, es veu a `APP/migrations` i és human-re
 Aplica el codi de les migrations per crear les taules
 `python manage.py migrate`
 
-## Tipus
+### Tipus
 
 Entre els tipus de Django es destaca `SlugField` per generar fàcilment pseudoidentificadors i `ImageField`, que gestiona molt fàcilment el tractament de imatges en el servidor.
 
@@ -56,16 +65,15 @@ Pel segon cal afegir `MEDIA_ROOT` i `MEDIA_URL` a `settings.py` per indicar on e
 
 Cada tipus té els seus atributs estecífics, sent `blank : Boolean` atribut comú per permetre valors nuls.
 
-## Relacions entre models
+### Relacions entre models
 
 Es poden definir les mateixes relacions entre elemens que SQL:
+
 - One To One: Propietat
 - One To Many: ForeinKey (clau forània)
 - Many To Many: ManyToManyKeys (internament clau forània a una taula separada)
 
-
-
-# Admin
+## Admin
 
 Per gestionar els models des de l'administració de la web hi ha el fitxer `admin.py`. Es crea un usuari de l'administració amb:
 `python manage.py createsuperuser`
@@ -74,8 +82,7 @@ Per cada model que es crea, s'ha d'indicar en aquest fitxer (`admin.site.registe
 
 Per personalitzar cada model, es crea una classe `<MODEL>Admin (admin.ModelAdmin)` i diferents variables modifiquen el comportament de la pàgina de admin. A la documentació de Django hi ha les opcions disponibles
 
-
-# Forms
+## Forms
 
 Django pot gestionar els formularis a partir de `forms.py`, que es crea en cada app concreta. Cada classe del fitxer és un formulari, i té associat els models que "interactuen" amb el formulari. Per cada model es pot seleccionar els camps d'interès
 

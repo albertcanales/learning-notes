@@ -1,4 +1,7 @@
-# Learn You Some Erlang for Great Good!
+<!-- FRONT
+title = "Learn You Some Erlang for Great Good!"
+description = "Fred Hébert"
+-->
 
 [Learn You Some Erlang for Great Good! - Fred Hébert](https://learnyousomeerlang.com/content)
 

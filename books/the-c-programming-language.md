@@ -1,4 +1,7 @@
-The C Programming Language, Second Edition
+<!-- FRONT
+title = "The C Programming Language (2nd Ed.)"
+description = "Brian Kernighan & Dennis Ritchie"
+-->
 
 > Disclaimer! I read this book being already familiar with C. I only took notes of some more detailed aspects of the language. It has been reordered, so it does not follow the book exactly.
 
@@ -39,7 +42,7 @@ Strings can be concated by using a space: `"Hello" " " "World!"`.
 
 Basic syntax:
 
-	enum seasons {WINTER = 1, SPRING, SUMMER, AUTUMN}
+    enum seasons {WINTER = 1, SPRING, SUMMER, AUTUMN}
 
 The unspecified values increment the previous one (`SPRING = 2`, etc).
 
@@ -66,7 +69,7 @@ Useful usage of conditionals on the preprocessor (including the appropiate heade
 ```c
 #if SYSTEM == SYSV
 	#define HDR "sysv.h"
-#elif SYSTEM == BSD 
+#elif SYSTEM == BSD
 	#define HDR "bsd.h"
 #else
 	#define HDR "default.h"
@@ -94,7 +97,7 @@ To archieve a more general code, pointers can be casted to `(\*void)` and back w
 Note the difference between:
 
 - `int *f()`: Function returning a pointer to an integer
-. `int (*f)()`: Pointer to a function returning an integer
+- `int (*f)()`: Pointer to a function returning an integer
 
 > The subsection 5.12 is pure gold. It build a program that parses a complex declaration with pointers and explains its meaning
 
@@ -103,4 +106,4 @@ Note the difference between:
 - `limits.h`: Limits for each type
 - `ctype.h`: Char manipulation (upper, lower, etc)
 
-***
+---

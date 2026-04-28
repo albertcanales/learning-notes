@@ -1,9 +1,11 @@
-Clean Architecture - Robert C. Martin
+<!-- FRONT
+title = "Clean Architecture"
+description = "Robert C. Martin"
+-->
 
 ## Foreword
 
 Software is fractal, as its foundation blocks are software themselves.
-
 
 # Introduction
 
@@ -32,9 +34,8 @@ It is the job of the Software Architect to ensure that structure is valued over 
 
 Each paradigm restricts the programmer in a certain way, to prevent bad practices. Some paradigms:
 
-- Structured Programming: Restricts *direct transfer of control*. No gotos, only use of conditionals or loops to control the program flow
-- Object-Oriented Programming: Restricts *indirect transfer of control*. Reduces functionality on function pointers, improving use of polymorphism.
-- Functional programming: Restricts *assigment*. Forces immutability of symbols
+- Structured Programming: Restricts _direct transfer of control_. No gotos, only use of conditionals or loops to control the program flow
+- Object-Oriented Programming: Restricts _indirect transfer of control_. Reduces functionality on function pointers, improving use of polymorphism.
+- Functional programming: Restricts _assigment_. Forces immutability of symbols
 
 ## Structured Programming
-

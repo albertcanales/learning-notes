@@ -1,4 +1,7 @@
-The Cathedral and The Bazaar - Eric S. Raymond
+<!-- FRONT
+title = "The Cathedral and The Bazaar"
+description = "Eric S. Raymond"
+-->
 
 > This notes may be a little different from the rest, as the historic nature of the book encourages me to branch out deeper into mentioned topics. Because of this, these notes may seem more like a bunch of references to those.
 
@@ -17,4 +20,4 @@ The Cathedral and The Bazaar - Eric S. Raymond
 
 ## The Early Hackers
 
-[The Jargon File](http://www.catb.org/jargon/html/), *a comprehensive compendium of hacker slang illuminating many aspects of hackish tradition, folklore, and humor.*
+[The Jargon File](http://www.catb.org/jargon/html/), _a comprehensive compendium of hacker slang illuminating many aspects of hackish tradition, folklore, and humor._

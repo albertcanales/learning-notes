@@ -1,4 +1,7 @@
-Computer Networking: A Top-Down Approach, Sixth Edition - James F.Kurose & Keith W.Ross
+<!-- FRONT
+title = "Computer Networking: A Top-Down Approach (6th Ed.)"
+description = "James F.Kurose & Keith W.Ross"
+-->
 
 # Computer Networks and the Internet
 
@@ -12,11 +15,12 @@ The internet can be seen as a set of connected devices in a certain way. Some no
 - **Communication Link**: Medium to communicate devices, like copper, fiber, radio spectrum...
 - **Packet**: Information sent though the network, consisting on the header and the data
 - **Packet Switches**: Devices that recieves packages and forwards them accordingly
-	- Routers: Used in network core
-	- Link-layer switches: Used in access networks
+  - Routers: Used in network core
+  - Link-layer switches: Used in access networks
 - **Route**: Path between two hosts
 
 Organisations that define standards:
+
 - **ITFS**: IP, TCP, HTTP, SMTP...
 - **IEEE**: Wifi, Ethernet...
 
@@ -24,7 +28,7 @@ Organisations that define standards:
 
 The Internet can also be seen as an infrastructure that provides services to applications.
 
-These applications are said to be *distributed*, as more than one end system is needed. These end systems communicate through APIs.
+These applications are said to be _distributed_, as more than one end system is needed. These end systems communicate through APIs.
 
 ### What is a Protocol?
 
@@ -32,12 +36,11 @@ All communication between end systems require the use of a predefined protocol. 
 
 - **Protocol**: A protocol defines ther format and the order of messages exchanged between two or more communication entities, as well as the actions taken on the transmission and/or receipt of a message or other event.
 
-
 ## The Network Edge
 
 ### Access Networks
 
-The closest router for a given end system is called an *edge router*.
+The closest router for a given end system is called an _edge router_.
 
 This edge router may be connected to the network core through different technologies.
 
@@ -58,9 +61,8 @@ For bigger areas, such as whole cities, technologies loke LTE, 3G, etc., are use
 
 When trasmitting data through a network, this transmission can be done in two types of media:
 
-- *Guided* media: Through a solid medium
-- *Unguided* media: Through the atmosphere or outer space
-
+- _Guided_ media: Through a solid medium
+- _Unguided_ media: Through the atmosphere or outer space
 
 In guided media, installation costs are much greater than material costs.
 
@@ -69,13 +71,14 @@ Some guided media examples are:
 #### Twisted-Pair Copper Wire
 
 Used initially by telephones. The twisting prevents interferences. Some cables can get to 10 Gbps. These are predominant in LAN networking
+
 #### Coaxial Cable
 
 Used in TV networks. Concentric wires, shielded. Usually used as a guided shared medium
 
 #### Fiber Optics
 
-Immune to interference, low signal attenuation, very fast and hard to tap. Used in long tranmissions and expensive networks. Naming of *OC-[n]*, where *speed = n · 51.8Mbps*
+Immune to interference, low signal attenuation, very fast and hard to tap. Used in long tranmissions and expensive networks. Naming of _OC-[n]_, where _speed = n · 51.8Mbps_
 
 Some unguided media examples are:
 
