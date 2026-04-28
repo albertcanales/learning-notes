@@ -90,13 +90,13 @@ Repàs d'interrupcions (figura inferior):
 4. Si la CPU l'accepta, s'envia la interrupció a la CPU
    Per evitar solapament d'interrupts, la CPU pot deshabilitar l'acceptació d'aquests. Llavors s'acumularan al interrupt controller, que decidirà quina deixa passar primer.
 
-![mos-interruptions.jpeg](img/mos-interruptions.jpeg)
+![mos-interruptions.jpeg](mos-interruptions.jpeg)
 
 ### Busos
 
 Amb ordenadors més complexos, un sol bus de dades no és suficient. Per exemple així estan estructurats els busos amb un sistema Pentium:
 
-![mos-pentium.jpeg](img/mos-pentium.jpeg)
+![mos-pentium.jpeg](mos-pentium.jpeg)
 
 Entre els busos destaquen els estandaritzats:
 
@@ -267,7 +267,7 @@ A process is an abstraction that represents a running program.
 
 The following diagram offers a great visualization to understand multiprogramming:
 
-![mos-multiprogramming.png](img/mos-multiprogramming.png)
+![mos-multiprogramming.png](mos-multiprogramming.png)
 
 Important difference between program and process:
 
@@ -309,7 +309,7 @@ The _block_ state allows us to think about syscalls as nothing more that other p
 
 The OS keeps a _Process Table_ containing all the control information about the running processes. The following figure shows the contents of each entry of this table:
 
-![mos-pcb.png](img/mos-pcb.png)
+![mos-pcb.png](mos-pcb.png)
 
 ### Modeling Multiprogramming
 
@@ -343,7 +343,7 @@ We can also think as processes as a group of threads. This grouping has two obje
 
 There is no protection between threads, but it is not really necessary as they are created by the same user (because they are the same process), and thus should not be hostile to one another.
 
-![mos-thread-items](img/mos-thread-items.png)
+![mos-thread-items](mos-thread-items.png)
 
 Threads go through the same states as processes, but no hierarchy is commonly used, only the TID (Thread ID).
 
@@ -358,7 +358,7 @@ A standard is defined for threads: **Pthreads**. Some function calls for managin
 
 ### Implementing Threads in User Space
 
-![mos-thread-userspace](img/mos-thread-userspace.png)
+![mos-thread-userspace](mos-thread-userspace.png)
 
 Threads can be implemented in user space, kernel space or a hybrid between both.
 
